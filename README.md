@@ -18,23 +18,24 @@ Language :
 Node js
 
 Commands :
-Show Templates 
+
+#### Show Templates 
 - Returns link of all templates 
 
-Create website <template-name>
+#### Create website <template-name>
  - returns the all commands available for that template 
  - returns unique id
  
- deploy id 
+#### deploy id 
  - returns link 
  
-remove id 
+#### remove id 
  - return message website removed
 
 ### Backend dev : 
 Your task is to design the basic backend that reads and writes data to files , to the database and call the deployment api
 
-File Structure:
+#### File Structure:
 
 ````
 - Templates 
@@ -50,7 +51,7 @@ File Structure:
 ### Deployment dev : 
 When the backend dev calls deploy must run the following bash script. 
 
-if it's a new repo
+#### if it's a new repo
 ```bash
 #!/bin/sh
 reponame="$1"
@@ -68,7 +69,7 @@ git remote add origin git@github.com:USERNAME/$reponame.git
 git push -u origin master
 
 ```
-Exisisting Repo
+#### Exisisting Repo
 ```bash
 #!/bin/sh
 git add README.md
@@ -76,7 +77,7 @@ git commit -m "Starting Out"
 git push -u origin master
 ```
 
-Code to deploy and get the site running
+#### Code to deploy and get the site running
 ```bash
 #!/bin/sh
 
@@ -114,7 +115,7 @@ cd public && git add --all && git commit -m "Publishing to gh-pages (publish.sh)
 Your task is to design the database structure and also provide the queries for them.
 You can even collaborate with the backend dev and use models.
 
-Your database must accommodate for:
+#### Your database must accommodate for:
 ````
 - Template name
 - Locations where to add content (Might require 1 to many for RDBMS) 
@@ -124,7 +125,7 @@ Your database must accommodate for:
 - Theme information (Derived from Template name and locations to add content) 
 ````
 
-Queries it must accommodate for 
+#### Queries it must accommodate for 
 1. Adding a new theme
 2. Deleting a new theme 
 3. Showing theme name and theme link 
@@ -133,11 +134,11 @@ Queries it must accommodate for
 ### Hugo module creator:
 Required to use existing hugo themes and configure it in such a way that it runs on github pages
 
-Help the:
+#### Help the:
 - Database designer and backend dev in giving information about each hugo theme used and ensure that all hugo themes are deployed using the same command.
 
 
-# Minimum Requirements:
+## Minimum Requirements:
 1. Used Git before 
 2. Integrated Rest Api’s before 
 3. Basic Experience with bash (Or willing to learn on the spot)
