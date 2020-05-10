@@ -112,12 +112,14 @@ Your task is to design the database structure and also provide the queries for t
 You can even collaborate with the backend dev and use models.
 
 Your database must accommodate for:
+````
 - Template name
 - Locations where to add content (Might require 1 to many for RDBMS) 
 - Demo link
 
 - Id 
 - Theme information (Derived from Template name and locations to add content) 
+````
 
 Queries it must accommodate for 
 1. Adding a new theme
