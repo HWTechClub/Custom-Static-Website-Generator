@@ -118,6 +118,11 @@ cd public && git add --all && git commit -m "Publishing to gh-pages (publish.sh)
 
 ```
 
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
+
 ### Database Designer and Integrator:
 
 Your task is to design the database structure and also provide the queries for them.
@@ -138,6 +143,10 @@ You can even collaborate with the backend dev and use models.
 2. Deleting a new theme 
 3. Showing theme name and theme link 
 4. Deleting id 
+
+
+-------------------------------------------------------------------------------------------------------------------------------
+
 
 ### Hugo module creator:
 Required to use existing hugo themes and configure it in such a way that it runs on github pages
