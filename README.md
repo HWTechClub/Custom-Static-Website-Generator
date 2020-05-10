@@ -23,7 +23,27 @@ Show Templates
 Create website <template-name>
  - returns the all commands available for that template 
  - returns unique id
-     -   deploy id 
-           - returns link 
+ deploy id 
+ - returns link 
+remove id 
+ - return message website removed
+
+### Backend dev : 
+Your task is to design the basic backend that reads and writes data to files , to the database and call the deployment api
+
+File Structure:
+
+````
+/Templates 
+   /Theme1 
+   /Theme2
+/ids
+  /id1
+     /Theme1 
+  /id2 
+     /Theme2
+````
+
+
 
 
