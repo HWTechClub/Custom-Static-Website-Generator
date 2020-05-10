@@ -65,6 +65,73 @@ git remote add origin git@github.com:USERNAME/$reponame.git
 git push -u origin master
 
 ```
+Exisisting Repo
+```bash
+#!/bin/sh
+git add README.md
+git commit -m "Starting Out"
+git push -u origin master
+```
+
+Code to deploy and get the site running
+```bash
+#!/bin/sh
+
+if [ "`git status -s`" ]
+then
+    echo "The working directory is dirty. Please commit any pending changes."
+    exit 1;
+fi
+
+echo "Deleting old publication"
+rm -rf public
+mkdir public
+git worktree prune
+rm -rf .git/worktrees/public/
+
+echo "Checking out gh-pages branch into public"
+git worktree add -B gh-pages public upstream/gh-pages
+
+echo "Removing existing files"
+rm -rf public/*
+
+echo "Generating site"
+hugo
+
+echo "Updating gh-pages branch"
+cd public && git add --all && git commit -m "Publishing to gh-pages (publish.sh)"
+
+#echo "Pushing to github"
+#git push --all
+
+```
+
+### Database Designer and Integrator:
+
+Your task is to design the database structure and also provide the queries for them.
+You can even collaborate with the backend dev and use models.
+
+Your database must accommodate for:
+- Template name
+- Locations where to add content (Might require 1 to many for RDBMS) 
+- Demo link
+
+- Id 
+- Theme information (Derived from Template name and locations to add content) 
+
+Queries it must accommodate for 
+1. Adding a new theme
+2. Deleting a new theme 
+3. Showing theme name and theme link 
+4. Deleting id 
+
+### Hugo module creator:
+Required to use existing hugo themes and configure it in such a way that it runs on github pages
+
+Help the:
+- Database designer and backend dev in giving information about each hugo theme used and ensure that all hugo themes are deployed using the same command.
+
+
 
 
 
