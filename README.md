@@ -20,11 +20,14 @@ Node js
 Commands :
 Show Templates 
 - Returns link of all templates 
+
 Create website <template-name>
  - returns the all commands available for that template 
  - returns unique id
+ 
  deploy id 
  - returns link 
+ 
 remove id 
  - return message website removed
 
