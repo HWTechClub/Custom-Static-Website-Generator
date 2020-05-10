@@ -38,9 +38,9 @@ File Structure:
    /Theme1 
    /Theme2
 /ids
-  /id1
+   /id1
      /Theme1 
-  /id2 
+   /id2 
      /Theme2
 ````
 
