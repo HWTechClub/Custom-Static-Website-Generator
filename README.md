@@ -134,6 +134,14 @@ Help the:
 - Database designer and backend dev in giving information about each hugo theme used and ensure that all hugo themes are deployed using the same command.
 
 
+# Minimum Requirements:
+1. Used Git before 
+2. Integrated Rest Api’s before 
+3. Basic Experience with bash (Or willing to learn on the spot)
+4. Build databases before 
+
+
+
 
 
 
