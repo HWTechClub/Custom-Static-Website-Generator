@@ -64,7 +64,7 @@ git commit -m "Starting Out"
 git remote add origin git@github.com:USERNAME/$reponame.git
 git push -u origin master
 
-```console
+```
 
 
 
