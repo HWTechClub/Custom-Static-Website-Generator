@@ -5,17 +5,17 @@ This will be a group activity challenge. You will be assigned all those who are 
 This project will be either GPL or AGPL license which means it’s an open source project that means the source code and application can be distributed for free.
 
 ## Create a whatsapp bot that creates a static webpage for you :
-Your task is to ensure that a user can create a website from whatsapp. We will make all websites static to ensure that we can add future features such as deploying the websites to a server or IPFS. We will use a static website generator called hugo. 
+Your task is to ensure that a user can create a website from whatsapp. We will make all websites static to ensure that we can add future features such as deploying the websites to a server or IPFS. We will use a static website generator called hugo.
 
-Each team interested must have a minimum of 5 developers 
+Each team interested must have a minimum of 5 developers
 
 
 -------------------------------------------------------------------------------------------------------------------------------
 
 
-### Bot Developer : 
-Your task is to design a bot that reads input and sends the according information to the API and displays the responded result. 
-Repo : 
+### Bot Developer :
+Your task is to design a bot that reads input and sends the according information to the API and displays the responded result.
+Repo :
 https://github.com/Tech-club/whatsapp-web.js/
 
 Language :
@@ -23,32 +23,32 @@ Node js
 
 ### Commands :
 
-#### Show Templates 
-- Returns link of all templates 
+#### Show Templates
+- Returns link of all templates
 
 #### Create website <template-name>
- - returns the all commands available for that template 
+ - returns the all commands available for that template
  - returns unique id
- 
-#### deploy id 
- - returns link 
- 
-#### remove id 
+
+#### deploy id
+ - returns link
+
+#### remove id
  - return message website removed
 
-### Backend dev : 
+### Backend dev :
 Your task is to design the basic backend that reads and writes data to files , to the database and call the deployment api
 
 #### File Structure:
 
 ````
-- Templates 
-   - Theme1 
+- Templates
+   - Theme1
    - Theme2
 - ids
    - id1
-     - Theme1 
-   - id2 
+     - Theme1
+   - id2
      - Theme2
 ````
 
@@ -56,26 +56,31 @@ Your task is to design the basic backend that reads and writes data to files , t
 --------------------------------------------------------------------------------------------------------------------------------
 
 
-### Deployment dev : 
-When the backend dev calls deploy must run the following bash script. 
+### Deployment dev :
+When the backend dev calls deploy must run the following bash script.
 
 #### if it's a new repo
 ```bash
 #!/bin/sh
 reponame="$1"
+GITHUBUSER=$(git config github.user)
+
+
+
 if [ "$reponame" = "" ]; then
 read -p "Enter Github Repository Name: " reponame
 fi
 mkdir ./$reponame
 cd $reponame
-curl -u USERNAME https://api.github.com/user/repos -d "{\"name\":\"$reponame\"}"
+curl -u $2:$3 https://api.github.com/user/repos -d "{\"name\":\"$reponame\"}"
+
+
 git init
 echo "ADD README CONTENT" > README.md
 git add README.md
 git commit -m "Starting Out"
-git remote add origin git@github.com:USERNAME/$reponame.git
+git remote add origin git@github.com:$2/$reponame.git
 git push -u origin master
-
 ```
 #### Exisisting Repo
 ```bash
@@ -131,18 +136,18 @@ You can even collaborate with the backend dev and use models.
 #### Your database must accommodate for:
 ````
 - Template name
-- Locations where to add content (Might require 1 to many for RDBMS) 
+- Locations where to add content (Might require 1 to many for RDBMS)
 - Demo link
 
-- Id 
-- Theme information (Derived from Template name and locations to add content) 
+- Id
+- Theme information (Derived from Template name and locations to add content)
 ````
 
-#### Queries it must accommodate for 
+#### Queries it must accommodate for
 1. Adding a new theme
-2. Deleting a new theme 
-3. Showing theme name and theme link 
-4. Deleting id 
+2. Deleting a new theme
+3. Showing theme name and theme link
+4. Deleting id
 
 
 -------------------------------------------------------------------------------------------------------------------------------
@@ -156,16 +161,7 @@ Required to use existing hugo themes and configure it in such a way that it runs
 
 
 ## Minimum Requirements:
-1. Used Git before 
-2. Integrated Rest Api’s before 
+1. Used Git before
+2. Integrated Rest Api’s before
 3. Basic Experience with bash (Or willing to learn on the spot)
-4. Build databases before 
-
-
-
-
-
-
-
-
-
+4. Build databases before
