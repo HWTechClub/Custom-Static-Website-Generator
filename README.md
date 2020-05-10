@@ -34,14 +34,14 @@ Your task is to design the basic backend that reads and writes data to files , t
 File Structure:
 
 ````
-/Templates 
-   /Theme1 
-   /Theme2
-/ids
-   /id1
-     /Theme1 
-   /id2 
-     /Theme2
+- Templates 
+   - Theme1 
+   - Theme2
+- ids
+   - id1
+     - Theme1 
+   - id2 
+     - Theme2
 ````
 
 
