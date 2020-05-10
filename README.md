@@ -9,7 +9,9 @@ Your task is to ensure that a user can create a website from whatsapp. We will m
 
 Each team interested must have a minimum of 5 developers 
 
+
 -------------------------------------------------------------------------------------------------------------------------------
+
 
 ### Bot Developer : 
 Your task is to design a bot that reads input and sends the according information to the API and displays the responded result. 
@@ -50,7 +52,9 @@ Your task is to design the basic backend that reads and writes data to files , t
      - Theme2
 ````
 
+
 --------------------------------------------------------------------------------------------------------------------------------
+
 
 ### Deployment dev : 
 When the backend dev calls deploy must run the following bash script. 
