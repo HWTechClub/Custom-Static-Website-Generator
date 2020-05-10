@@ -48,7 +48,7 @@ File Structure:
 When the backend dev calls deploy must run the following bash script. 
 
 if it's a new repo
-```console
+```bash
 #!/bin/sh
 reponame="$1"
 if [ "$reponame" = "" ]; then
