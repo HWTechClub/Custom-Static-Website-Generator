@@ -17,7 +17,7 @@ https://github.com/Tech-club/whatsapp-web.js/
 Language :
 Node js
 
-Commands :
+#### Commands :
 
 #### Show Templates 
 - Returns link of all templates 
