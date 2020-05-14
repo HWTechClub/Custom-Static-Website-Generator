@@ -1,0 +1,32 @@
+{
+  "name": "sheet-commerce",
+  "version": "1.0.0",
+  "description": "Create a store using a spreasheet ",
+  "main": "app.js",
+  "scripts": {
+    "test": "",
+    "start": "node app.js",
+    "dev": "node app.js"
+  },
+  "keywords": [
+    "Spreadsheet"
+  ],
+  "author": "Nicole Egbuniwe Tobe & Akilan Selvacoumar",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "csvtojson": "^2.0.10",
+    "ejs": "^2.6.2",
+    "express": "^4.17.0",
+    "express-session": "^1.16.2",
+    "fs-extra": "^8.1.0",
+    "joi": "^14.3.1",
+    "multer": "^1.4.1",
+    "mysql": "^2.17.1",
+    "mysql-promise": "^5.0.0",
+    "onoff": "^4.1.1",
+    "path": "^0.12.7",
+    "sleep": "^6.1.0"
+  }
+}

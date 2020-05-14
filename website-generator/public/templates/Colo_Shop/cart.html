@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>Company name</title>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="Colo Shop Template">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="styles/bootstrap4/bootstrap.min.css">
+	<link href="plugins/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.carousel.css">
+	<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/owl.theme.default.css">
+	<link rel="stylesheet" type="text/css" href="plugins/OwlCarousel2-2.2.1/animate.css">
+	<link rel="stylesheet" type="text/css" href="styles/main_styles.css">
+	<link rel="stylesheet" type="text/css" href="styles/responsive.css">
+</head>
+
+<body>
+
+	<div class="super_container">
+
+		<!-- Header -->
+
+		<header class="header trans_300">
+
+			<!-- Top Navigation -->
+
+			<div class="top_nav">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-6">
+							<div class="top_nav_left">This website is powered by shopsheet</div>
+						</div>
+						<div class="col-md-6 text-right">
+							<div class="top_nav_right">
+								<ul class="top_nav_menu">
+
+									<!-- Currency / Language / My Account -->
+
+									<!---<li class="currency">
+									<a href="#">
+										usd
+										<i class="fa fa-angle-down"></i>
+									</a>
+									<ul class="currency_selection">
+										<li><a href="#">cad</a></li>
+										<li><a href="#">aud</a></li>
+										<li><a href="#">eur</a></li>
+										<li><a href="#">gbp</a></li>
+									</ul>
+								</li>
+								<li class="language">
+									<a href="#">
+										English
+										<i class="fa fa-angle-down"></i>
+									</a>
+									<ul class="language_selection">
+										<li><a href="#">French</a></li>
+										<li><a href="#">Italian</a></li>
+										<li><a href="#">German</a></li>
+										<li><a href="#">Spanish</a></li>
+									</ul>
+								</li>
+								<li class="account">
+									<a href="#">
+										My Account
+										<i class="fa fa-angle-down"></i>
+									</a>
+									<ul class="account_selection">
+										<li><a href="#"><i class="fa fa-sign-in" aria-hidden="true"></i>Sign In</a></li>
+										<li><a href="#"><i class="fa fa-user-plus" aria-hidden="true"></i>Register</a></li>
+									</ul>
+								</li>-->
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Main Navigation -->
+
+			<div class="main_nav_container">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12 text-right">
+							<div class="logo_container">
+								<a href="#"><img
+										src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Adidas_Logo.svg/1200px-Adidas_Logo.svg.png"
+										class="img-fluid" style="height:5rem;" /></a>
+							</div>
+							<nav class="navbar">
+								<ul class="navbar_menu">
+									<li><a href="index.html">home</a></li>
+									<li><a href="contact.html">contact</a></li>
+								</ul>
+								<ul class="navbar_user">
+									<li class="checkout">
+										<a href="#">
+											<i class="fa fa-shopping-cart" aria-hidden="true"></i>
+											<span id="checkout_items" class="checkout_items">2</span>
+										</a>
+									</li>
+								</ul>
+								<div class="hamburger_container">
+									<i class="fa fa-bars" aria-hidden="true"></i>
+								</div>
+							</nav>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</header>
+
+		<div class="fs_menu_overlay"></div>
+		<div class="hamburger_menu">
+			<div class="hamburger_close"><i class="fa fa-times" aria-hidden="true"></i></div>
+			<div class="hamburger_menu_content text-right">
+				<ul class="menu_top_nav">
+					<li class="menu_item"><a href="#">home</a></li>
+					<li class="menu_item"><a href="#">cart</a></li>
+					<li class="menu_item"><a href="#">contact</a></li>
+				</ul>
+			</div>
+		</div>
+
+		<!-- Slider -->
+
+		<!-- New Arrivals -->
+
+		<div class="new_arrivals">
+			<div class="container">
+				<br>
+				<br>
+				<br>
+				<br>
+				<br>
+				<div class="row">
+					<div class="col text-center">
+						<div class="section_title new_arrivals_title">
+							<h2>Your Cart</h2>
+						</div>
+					</div>
+
+				</div>
+				<br>
+				<br>
+				<!---<div class="row align-items-center">
+				<div class="col text-center">
+					<div class="new_arrivals_sorting">
+						<ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
+							<li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked" data-filter="*">all</li>
+							<li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".women">women's</li>
+							<li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".accessories">accessories</li>
+							<li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".men">men's</li>
+						</ul>
+					</div>
+				</div>
+			</div>-->
+				<div class="row">
+					<table class="table table-striped table-dark">
+						<thead>
+							<tr>
+								<th scope="col">items</th>
+								<th scope="col">Amount</th>
+								<th scope="col">Delete</th>
+							</tr>
+						</thead>
+						<tbody id="table">
+							<tr>
+								<td>Mark</td>
+								<td>Otto</td>
+								<td><a href="#">
+										<i class="fa fa-window-close" aria-hidden="true"
+											style="color:red; font-size:1.5rem;"></i>
+
+									</a></td>
+							</tr>
+							<tr>
+								<td>Jacob</td>
+								<td>Thornton</td>
+								<td><a href="#">
+										<i class="fa fa-window-close" aria-hidden="true"
+											style="color:red; font-size:1.5rem;"></i>
+									</a></td>
+							</tr>
+							<tr>
+								<td>Larry</td>
+								<td>the Bird</td>
+								<td><a href="#">
+										<i class="fa fa-window-close" aria-hidden="true"
+											style="color:red; font-size:1.5rem;"></i>
+									</a></td>
+							</tr>
+						</tbody>
+					</table>
+					<br>
+					<br>
+
+				</div>
+				<div>
+					<form action="post">
+						<div
+							class="newsletter_form d-flex flex-md-row flex-column flex-xs-column align-items-center justify-content-lg-end justify-content-center">
+							<button id="newsletter_submit" type="button" class="newsletter_submit_btn trans_300"
+								data-toggle="modal" data-target="#exampleModal" value="Submit">Buy</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+				aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="exampleModalLabel">Your information</h5>
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<form method="POST" action="https://formspree.io/{{.Email}}">
+								<div style="display:none" id="receipt">
+									<!-- <textarea name="purchases">
+											item 1 - 3 AED
+											item 1 - 3 AED
+					
+											Total: 6 AED
+										</textarea>-->
+
+								</div>
+								<div class="form-group">
+									<label for="full_name" class="col-form-label">Full Name:</label>
+									<input type="text" class="form-control" id="full-name">
+								</div>
+								<div class="form-group">
+									<label for="email_id" class="col-form-label">Email id:</label>
+									<input type="text" class="form-control" id="Email-id">
+								</div>
+								<div class="form-group">
+									<label for="mobile_no" class="col-form-label">Mobile no:</label>
+									<input type="text" class="form-control" id="mobile_no"
+										placeholder="Please include with country code">
+								</div>
+								<div class="form-group">
+									<label for="Shipping-address" class="col-form-label">Shipping address:</label>
+									<textarea class="form-control" id="Shipping-address"></textarea>
+								</div>
+								<div class="form-group">
+									<label for="Comments" class="col-form-label">Comments:</label>
+									<textarea class="form-control" id="Comments"></textarea>
+								</div>
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button type="button" class="btn btn-primary">Place Order</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Footer -->
+
+			<footer class="footer">
+				<div class="container">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="footer_nav_container">
+								<div class="cr">©2018 All Rights Reserverd. This template is made with <i
+										class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#">Colorlib</a></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+
+		</div>
+
+		<script src="js/jquery-3.2.1.min.js"></script>
+		<script src="styles/bootstrap4/popper.js"></script>
+		<script src="styles/bootstrap4/bootstrap.min.js"></script>
+		<script src="plugins/Isotope/isotope.pkgd.min.js"></script>
+		<script src="plugins/OwlCarousel2-2.2.1/owl.carousel.js"></script>
+		<script src="plugins/easing/easing.js"></script>
+		<script src="js/custom.js"></script>
+
+		<script>
+			$(document).ready(function () {
+				var arr_json = JSON.parse(localStorage.getItem("items"));
+				$("#table").html("");
+				var receipt = "<textarea name=\"purchases\">";
+				var sum = 0;
+				for (var i = 0; i < arr_json.length; i++) {
+					$("#table").append(`<tr>
+						  <td>`+ arr_json[i].name + `</td>
+						  <td>`+ arr_json[i].price + `</td>
+						  <td><a href="#"  onclick="delete_item(`+ i + `)">
+										<i class="fa fa-window-close" aria-hidden="true" style="color:red; font-size:1.5rem;"></i>
+						   </a></td>
+						  </tr>
+					 `);
+					receipt += "\n" + arr_json[i].name + " - " + arr_json[i].price + "\n";
+					sum += arr_json[i].price;
+
+				}
+				
+				receipt += "\n\nSum: " + sum + "\n</textarea>";
+				console.log(receipt);
+				$("#receipt").html(receipt);
+
+				$("#table").append(`<tr>
+						  <td style="font-weight:700">Total : </td>
+						  <td style="font-weight:700">`+ sum + `</td>
+						  <td></td>
+						  </tr>
+				`);
+			});
+
+			function delete_item(id) {
+				$("#table").html("");
+				var arr_json = JSON.parse(localStorage.getItem("items"));
+				if (id > -1) {
+					arr_json.splice(id, 1);
+				}
+				console.log(id);
+				localStorage.setItem("items", JSON.stringify(arr_json));
+				console.log(JSON.parse(localStorage.getItem("items")));
+				console.log(arr_json.length);
+				var receipt = "<textarea name=\"purchases\">";
+				var sum = 0;
+				$("#receipt").html("");
+				for (var i = 0; i < arr_json.length; i++) {
+					$("#table").append(`<tr>
+						  <td>`+ arr_json[i].name + `</td>
+						  <td>`+ arr_json[i].price + `</td>
+						  <td><a href="#"  onclick="delete_item(`+ i + `)">
+										<i class="fa fa-window-close" aria-hidden="true" style="color:red; font-size:1.5rem;"></i>
+						   </a></td>
+						  </tr>
+					 `);
+					receipt += "\n" + arr_json[i].name + " - " + arr_json[i].price + "\n";
+					sum += arr_json[i].price;
+
+				}
+				receipt += "\n\nSum: " + sum + "\n</textarea>";
+				$("#receipt").html(receipt);
+				console.log(receipt);
+				$("#checkout_items").html(arr_json.length);
+
+				$("#table").append(`<tr>
+						  <td style="font-weight:700">Total : </td>
+						  <td style="font-weight:700">`+ sum + `</td>
+						  <td></td>
+						  </tr>
+				`);
+			}
+		</script>
+</body>
+
+</html>

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>SheetCommerce</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <link href="https://fonts.googleapis.com/css?family=Muli:300,400,700,900" rel="stylesheet">
+  <link rel="stylesheet" href="fonts/icomoon/style.css">
+
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/jquery-ui.css">
+  <link rel="stylesheet" href="css/owl.carousel.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="css/owl.theme.default.min.css">
+
+  <link rel="stylesheet" href="css/jquery.fancybox.min.css">
+
+  <link rel="stylesheet" href="css/bootstrap-datepicker.css">
+
+  <link rel="stylesheet" href="fonts/flaticon/font/flaticon.css">
+
+  <link rel="stylesheet" href="css/aos.css">
+
+  <link rel="stylesheet" href="css/style.css">
+
+</head>
+
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+
+
+    <header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+
+      <div class="container-fluid">
+        <div class="d-flex align-items-center">
+          <div class="site-logo mr-auto w-25"><a href="/">SheetCommerce</a></div>
+
+          <div class="mx-auto text-center">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav mx-auto d-none d-lg-block  m-0 p-0">
+                <!---<li><a href="#home-section" class="nav-link">Home</a></li>-->
+                <!---<li><a href="#courses-section" class="nav-link">Courses</a></li>
+                <li><a href="#programs-section" class="nav-link">Programs</a></li>
+                <li><a href="#teachers-section" class="nav-link">Teachers</a></li>-->
+              </ul>
+            </nav>
+          </div>
+
+
+        </div>
+      </div>
+
+    </header>
+
+    <div class="intro-section" id="home-section">
+
+      <div class="slide-1"
+        style="background-image: url('https://images.pexels.com/photos/196644/pexels-photo-196644.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940')"
+        data-stellar-background-ratio="0.4">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-12">
+              <div class="row align-items-center">
+                <div class="col-lg-6 mb-4">
+                  <h1 data-aos="fade-up" data-aos-delay="100">Generate a basic website</h1>
+                  <p class="mb-4" data-aos="fade-up" data-aos-delay="200">Anyone can make an e-commerce website now in
+                    under 5 minutes</p>
+                  <p data-aos="fade-up" data-aos-delay="300"><a href="/#create-section"
+                      class="btn btn-black py-3 px-5 btn-pill">Create one now</a></p>
+
+                </div>
+
+                <!---<div class="col-lg-5 ml-auto" data-aos="fade-up" data-aos-delay="500">
+                  <form action="" method="post" class="form-box">
+                    <h3 class="h4 text-black mb-4">Create a basic one</h3>
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Email Addresss">
+                    </div>
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="Company name">
+                    </div>
+                    <div class="form-group mb-4">
+                      <input type="text" class="form-control" placeholder="Company Logo URL">
+                    </div>
+                    <div class="form-group mb-4">
+                      <input type="text" class="form-control" placeholder="Dashboard image URL">
+                    </div>
+                    <div class="form-group">
+                      <input type="submit" class="btn btn-primary btn-pill" value="Generate Website">
+                    </div>
+                  </form>
+
+                </div>-->
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="site-section bg-light" id="create-section">
+      <div class="container">
+
+        <div class="row justify-content-center">
+          <div class="col-md-7">
+
+
+
+            <h2 class="section-title mb-3">Create an simple e-commerce website now</h2>
+            <p class="mb-5"></p>
+
+            <!-- enctype="multipart/form-data" -->
+            <form id="site-form" enctype="multipart/form-data"  method="post" action="/generate" data-aos="fade">
+              <div class="form-group row">
+                <div class="col-md-6 mb-3 mb-lg-0">
+                  <input name="firstName" type="text" class="form-control" placeholder="First name" id="firstName">
+                </div>
+                <div class="col-md-6">
+                  <input name="lastName" type="text" class="form-control" placeholder="Last name" id="lastName">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <input name="companyName" type="text" class="form-control" placeholder="Company name" id="companyName">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <input name="logoUrl" type="text" class="form-control" placeholder="Company Logo URL" id="logoUrl">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <input name="bannerUrl" type="text" class="form-control" placeholder="Banner image URL" id="bannerUrl">
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <input name="email" type="email" class="form-control" placeholder="Email" id="email">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <input name="template" type="hidden" class="form-control" value="Colo_Shop" id="template">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-12">
+                  <textarea name="description" class="form-control" id="description" cols="30" rows="10" placeholder="Description"
+                    id="description"></textarea>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6 mb-3 mb-lg-0">
+                  <br>
+                  <h5>Add CSV file </h5>
+                  <input name="csv" type="file" accept=".csv" id="csv" required />
+                </div>
+                <div class="col-md-6">
+                  <br>
+                  <h5>Download this template CSV file edit it and add it</h5>
+                  <br>
+                  <input type="button" class="btn btn-green py-3 px-5 btn-block btn-pill" value="Download CSV template"
+                    onclick="window.location.href='/csv/template.csv'" />
+                </div>
+              </div>
+              <br>
+              <br>
+
+              <!--Hidden input only for testing purposes-->
+              <!--<input type="text" name="template" class="form-control" value="Colo_shop">-->
+
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <input type="button" class="btn btn-black py-3 px-5 btn-block btn-pill" value="Deploy Website" onClick="getCsv()" 
+                    /> 
+                    <!-- onClick="generate_website()" -->
+                </div>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="footer-section bg-white">
+      <div class="container">
+
+        <div class="row pt-5 mt-5 text-center">
+          <div class="col-md-12">
+            <div class="border-top pt-5">
+              <p>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                Copyright &copy;
+                <script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made
+                with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com"
+                  target="_blank">Colorlib</a>
+                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </footer>
+
+
+
+  </div> <!-- .site-wrap -->
+
+  <!--Local JS code-->
+  <script>
+
+    function getCsv() {
+      //access files property of input elemeent
+      const c = $('#csv').prop('files')[0]
+     
+      if(c){
+          const fReader = new FileReader();
+          fReader.readAsDataURL(c)
+          fReader.onloadend = function(event){
+          //remove preffix for data
+          var file = event.target.result.replace('data:text/csv;base64,','')
+          //decode base64 to string and send all data to server
+          sendData(atob(file))
+        }
+      } else{
+        alert('Please upload a csv')
+      }
+      
+
+    }
+    //validation function not done yet.
+    function  validateData(){
+      const firstName = $('#firstName').val();
+      const lastName = $('#lastName').val();
+      const companyName =  $('#companyName').val();
+      const logoUrl = $('#logoUrl').val();
+      const bannerUrl = $('#bannerUrl').val();
+      const email = $('#email').val();
+      const description = $('#description').val();
+      //do something here
+    }
+
+    function sendData(sheetcsv){
+      const form = document.getElementById('site-form');
+      const formData = new FormData(form);
+      const firstName = formData.get('firstName');
+      const lastName = formData.get('lastName');
+      const companyName = formData.get('companyName');
+      const logoUrl = formData.get('logoUrl');
+      const bannerUrl = formData.get('bannerUrl');
+      const email = formData.get('email');
+      const description = formData.get('description');
+      const template = formData.get('template');
+
+      const csv = sheetcsv
+      const json = {  firstName, lastName, companyName, logoUrl, bannerUrl, email, description,template, csv }
+
+        fetch('/generate', {
+          method:"POST",
+          body: JSON.stringify(json),
+          headers: {
+        'content-type': 'application/json'
+          }
+        })
+        .then(response=>response.json())
+        .then(data => {
+          console.log(data.directory);
+          window.location.href = "/pages/"+data.directory;
+        })
+        .catch(err=>{
+          console.log(err, 'fetch error')
+        })
+    }
+
+
+    // function csvJSON(csv) {
+
+    //   var lines = csv.split("\n");
+    //   var result = [];
+
+    //   var headers = lines[0].split(",");
+
+    //   for (var i = 1; i < lines.length; i++) {
+
+    //     var obj = {};
+    //     var currentline = lines[i].split(",");
+
+    //     for (var j = 0; j < headers.length; j++) {
+    //       obj[headers[j]] = currentline[j];
+    //     }
+
+    //     result.push(obj);
+
+    //   }
+
+    //   //return result; //JavaScript object
+    //   return JSON.stringify(result); //JSON
+    // }
+  </script>
+
+  <script src="js/jquery-3.3.1.min.js"></script>
+  <script src="js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="js/popper.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/owl.carousel.min.js"></script>
+  <script src="js/jquery.stellar.min.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/bootstrap-datepicker.min.js"></script>
+  <script src="js/jquery.easing.1.3.js"></script>
+  <script src="js/aos.js"></script>
+  <script src="js/jquery.fancybox.min.js"></script>
+  <script src="js/jquery.sticky.js"></script>
+
+  <!--For reading csv file-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-csv/1.0.4/jquery.csv.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+
+</html>
