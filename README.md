@@ -6,11 +6,22 @@
 # Generating static web pages using whatsapp 
 In this project we will illustrate how to build a static web page using commands in whatsapp. 
 
-## installation
+## Installation
 Requirements : Node js and Npm 
+
+### To start web generator
 
 ``` 
 cd website-generation
 npm install 
 npm start
-```bash
+```
+
+
+### To start whatsapp bot
+
+``` 
+cd whatsapp-web.js
+npm install 
+npm start
+```
