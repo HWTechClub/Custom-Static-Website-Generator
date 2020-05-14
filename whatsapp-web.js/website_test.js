@@ -92,7 +92,8 @@ client.on('message', async msg =>
         console.log(product_image);
     } */
     else if(msg.body.startsWith('product image:')){
-      const attachmentData = Number(msg.body.slice(13));
+     // const attachmentData = Number(msg.body.slice(13));
+      product_image = Number(msg.body.slice(13));
       console.log("".concat("Product image = ", product_name));
     }
     else if(msg.body == "!done")
@@ -101,7 +102,7 @@ client.on('message', async msg =>
         var comma = "," ;
 // Using currently image Url until issue fixed
      /*   s = "\n".concat(product_id,comma,product_name,comma,description,comma,cost,comma,"data:image/jpeg;base64 ",product_image["data"]); */
-s = "\n".concat(product_id,comma,product_name,comma,description,comma,cost,comma,product_image["data"]);
+s = "\n".concat(product_id,comma,product_name,comma,description,comma,cost,comma,product_image);
 
         console.log(a)
         a = a.concat(s)
