@@ -93,7 +93,7 @@ client.on('message', async msg =>
     } */
     else if(msg.body.startsWith('product image:')){
      // const attachmentData = Number(msg.body.slice(13));
-      product_image = Number(msg.body.slice(13));
+      product_image = msg.body.slice(13);
       console.log("".concat("Product image = ", product_name));
     }
     else if(msg.body == "!done")
@@ -104,7 +104,7 @@ client.on('message', async msg =>
      /*   s = "\n".concat(product_id,comma,product_name,comma,description,comma,cost,comma,"data:image/jpeg;base64 ",product_image["data"]); */
 s = "\n".concat(product_id,comma,product_name,comma,description,comma,cost,comma,product_image);
 
-        console.log(a)
+        //console.log(a)
         a = a.concat(s)
         console.log(a)
    
@@ -150,7 +150,7 @@ s = "\n".concat(product_id,comma,product_name,comma,description,comma,cost,comma
         j = JSON.stringify(j);
         console.log(j)
         request({
-            url: "http://localhost:8004/generate",
+            url: process.argv[2]+"/generate",
             method: "POST",
             headers: {
                 "content-type": "application/json",  // <--Very important!!!

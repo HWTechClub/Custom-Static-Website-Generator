@@ -279,13 +279,13 @@
 	<script>
 		$(document).ready(function () {
 
-			if (localStorage.getItem('Heriot Watt_1') === null) {
+			if (localStorage.getItem('Heriot Watt') === null) {
 				console.log("here");
 				var arr = new Array();
-				localStorage.setItem('Heriot Watt_1', JSON.stringify(arr));
+				localStorage.setItem('Heriot Watt', JSON.stringify(arr));
 			}
 
-			var arr_json = JSON.parse(localStorage.getItem('Heriot Watt_1'));
+			var arr_json = JSON.parse(localStorage.getItem('Heriot Watt'));
 
 			$("#checkout_items").html(arr_json.length);
 			console.log(arr_json.length);
