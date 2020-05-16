@@ -27,7 +27,5 @@ npm start
 ```
 
 ### Contributors 
-1. Akilan Selvacoumar 
-- as251@hw.ac.uk
-2. Gaurav Gosain
-- gg68@hw.ac.uk
+1. Akilan Selvacoumar : as251@hw.ac.uk
+2. Gaurav Gosain : gg68@hw.ac.uk
