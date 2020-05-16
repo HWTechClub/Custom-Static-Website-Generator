@@ -193,9 +193,11 @@ client.on('message', async msg =>
         }, function (error, response, body){
             // Gets Url from the Argument
             client.sendMessage(msg.from, process.argv[2] + "/pages/" + JSON.parse(response.body).directory);
-             client.sendMessage(msg.from,"*Website ID:*" + JSON.parse(response.body).directory);
-             client.sendMessage(msg.from,"*Important to remember the ID*");
-             a = "product id,product name,description,cost,product image url";
+            client.sendMessage(msg.from,"*Website ID:* " + JSON.parse(response.body).directory);
+            client.sendMessage(msg.from,"*Important to remember the ID*");
+
+            data.splice(id,1);
+
         });
         // var website_link = "https://localhost:8004" + "/pages/" + data.directory
     }
