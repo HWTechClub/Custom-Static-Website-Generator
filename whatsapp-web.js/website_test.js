@@ -102,7 +102,7 @@ client.on('message', async msg =>
     else if (msg.body.startsWith('cost:'))
     {
         id = check_id(msg.id.remote);
-        data[id].data[data[id].cur_iter_data].cost = Number(msg.body.slice(12));
+        data[id].data[data[id].cur_iter_data].cost = Number(msg.body.slice(5));
     }
     // Testing Phase
 
