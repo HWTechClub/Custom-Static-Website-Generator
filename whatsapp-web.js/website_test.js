@@ -3,7 +3,7 @@ var request = require('request');
 const { Client, Location } = require('./index');
 const MessageMedia = require('./src/structures/MessageMedia');
 
-// Data structure to store basic information : To ensure that user gets the website genreated wit the data which he wrote
+// Data structure to store basic information : To ensure that user gets the website genreated with the data which he wrote
 /*
 data = [
 {
