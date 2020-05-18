@@ -1,6 +1,6 @@
 # Website generator 
 In the following repository we can create a static webpage from CSV or JSON rest api call. We either host the website on our 
-node js server or we can even deploy it on our IPFS server.
+node js server ohttps://nodejs.org/en/download/r we can even deploy it on our IPFS server.
 
 ## Installation 
 ### Dependency 
@@ -10,4 +10,12 @@ https://docs.ipfs.io/guides/guides/install/
 ```
 ipfs init
 ipfs daemon
+```
+3. Install Node js
+https://nodejs.org/en/download/
+
+4. Run repo 
+```
+npm install
+npm start
 ```
