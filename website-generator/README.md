@@ -14,7 +14,7 @@ ipfs daemon
 3. Install Node js
 https://nodejs.org/en/download/
 
-4. Run repo 
+### Run repo 
 ```
 npm install
 npm start
