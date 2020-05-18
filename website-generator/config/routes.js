@@ -1,7 +1,7 @@
 const home = require('../app/controllers/home');
 
 module.exports = function (app){
-  
+
   app.get('/', home.home);
 
   //post form
@@ -10,5 +10,6 @@ module.exports = function (app){
 
   app.get('/template_info',home.template_info);
 
- }
+  app.get('/ipfsdeploy', home.deploy_ipfs);
 
+ }

@@ -182,7 +182,6 @@ client.on('message', async msg =>
         j["description"] = data[id].intial_data[6];
         j["csv"] = data[id].csv ;
         j = JSON.stringify(j);
-        console.log(j)
         request({
             url: process.argv[2]+"/generate",
             method: "POST",
@@ -200,6 +199,24 @@ client.on('message', async msg =>
 
         });
         // var website_link = "https://localhost:8004" + "/pages/" + data.directory
+    }
+    // To deploy your website on IPFS
+    else if(msg.body.startsWith("deploy ipfs"))
+    {
+      var id = msg.body.slice(12);
+      request({
+          url: process.argv[2]+"/ipfsdeploy?id="+id,
+          method: "GET",
+          headers: {
+              "content-type": "application/json",  // <--Very important!!!
+          }
+      }, function (error, response, body){
+          // Gets Url from the Argument
+          client.sendMessage(msg.from, "https://ipfs.io/ipfs/" + JSON.parse(response.body).data);
+          client.sendMessage(msg.from, "Takes around 10-30 minutues to deploy");
+          client.sendMessage(msg.from, "Read more about IPFS https://ipfs.io/");
+
+      });
     }
 
 });

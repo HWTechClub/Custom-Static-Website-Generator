@@ -2,7 +2,8 @@ const Joi = require('joi');
 const csv = require("csvtojson");
 const fs = require('fs-extra');
 const ejs = require('ejs');
-
+const shell = require('shelljs');
+const Regex = require("regex");
 
 exports.home = function (req, res) {
 
@@ -69,12 +70,12 @@ exports.generate = function (req, res) {
   /*fs.createReadStream('./public/Colo_Shop/index.html').pipe(fs.createWriteStream(dir + '/index.html'));
   fs.createReadStream('./public/Colo_Shop/cart.html').pipe(fs.createWriteStream(dir + '/cart.html'));
   fs.createReadStream('./public/Colo_Shop/contact.html').pipe(fs.createWriteStream(dir + '/contact.html'));
- 
+
   copy_folder('./public/Colo_Shop/styles', dir + '/styles');
   copy_folder('./public/Colo_Shop/js', dir + '/js');
   copy_folder('./public/Colo_Shop/plugins', dir + '/plugins');
   copy_folder('./public/Colo_Shop/images', dir + '/images');
- 
+
   ejs2html('./public/Colo_Shop/index.ejs', req.body , dir, "index");
   ejs2html('./public/Colo_Shop/cart.ejs', req.body , dir, "cart");
   ejs2html('./public/Colo_Shop/contact.ejs', req.body , dir, "contact");*/
@@ -84,6 +85,30 @@ exports.generate = function (req, res) {
   }
 
   res.json(resp);
+}
+
+//Function to deploy website to IPFS
+
+exports.deploy_ipfs = function (req, res) {
+
+  var id = req.query.id;
+
+  shell.config.verbose = true; // or set('-v');
+
+  shell.cd('public/pages');
+
+  shell.exec('ipfs add -r ' + '"' + id + '"' + '/', function(code, stdout, stderr) {
+        let regex = /((.*?)\n)*/g;
+        let match = regex.exec(stdout);
+        var index = match.length - 1;
+
+        match = match[index].replace('added ','');
+        res.json({"data":match});
+
+});
+
+
+
 }
 
 exports.convertCsv = function (req, res, next) {
