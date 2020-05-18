@@ -13,9 +13,7 @@ Requirements : Node js and Npm
 
 ``` 
 cd website-generation
-npm install 
-npm start
-```
+Installation : https://github.com/Tech-club/Challenge-1/tree/master/website-generator#installation
 
 
 ### To start whatsapp bot
