@@ -83,6 +83,29 @@ client.on('message', async msg =>
         cost = 0;
         product_image = "";
     }
+    /*
+       ------------------------- Show Templates --------------------------------
+        -> Returns all possible templates avaliable
+    */
+    else if(msg.body == 'show templates')
+    {
+      request({
+          url: process.argv[2]+"/template_info",
+          method: "GET",
+          headers: {
+              "content-type": "application/json",  // <--Very important!!!
+          },
+          body: j
+      }, function (error, response, body){
+          // Gets Url from the Argument
+          for(var i = 0;i < JSON.parse(response.body).templates; i++){
+            client.sendMessage(msg.from, process.argv[2] + "*Template name* : " + JSON.parse(response.body).templates[i].template_name);
+            client.sendMessage(msg.from, process.argv[2] + "/templates/" + JSON.parse(response.body).templates[i].template_name);
+          }
+
+      });
+
+    }
     else if (msg.body.startsWith('product id:'))
     {
         id = check_id(msg.id.remote);
