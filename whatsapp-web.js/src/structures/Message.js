@@ -18,10 +18,23 @@ class Message extends Base {
 
     _patch(data) {
         /**
+         * MediaKey that represents the sticker 'ID'
+         * @type {string}
+         */
+        this.mediaKey = data.mediaKey;
+
+
+        /**
          * ID that represents the message
          * @type {object}
          */
         this.id = data.id;
+
+        /**
+         * ACK status for the message
+         * @type {MessageAck}
+         */
+        this.ack = data.ack;
 
         /**
          * Indicates if the message has media available for download
@@ -51,7 +64,7 @@ class Message extends Base {
          * ID for the Chat that this message was sent to, except if the message was sent by the current user.
          * @type {string}
          */
-        this.from = typeof (data.from) === 'object' ? data.from._serialized : data.from;
+        this.from = (typeof (data.from) === 'object' && data.from !== null) ? data.from._serialized : data.from;
 
         /**
          * ID for who this message is for.
@@ -60,13 +73,13 @@ class Message extends Base {
          * If the message is sent by another user, it will be the ID for the current user. 
          * @type {string}
          */
-        this.to = typeof (data.to) === 'object' ? data.to._serialized : data.to;
+        this.to = (typeof (data.to) === 'object' && data.to !== null) ? data.to._serialized : data.to;
 
         /**
          * If the message was sent to a group, this field will contain the user that sent the message.
          * @type {string}
          */
-        this.author = typeof (data.author) === 'object' ? data.author._serialized : data.author;
+        this.author = (typeof (data.author) === 'object' && data.author !== null) ? data.author._serialized : data.author;
 
         /**
          * Indicates if the message was forwarded
@@ -186,8 +199,19 @@ class Message extends Base {
             return undefined;
         }
 
-        const {data, mimetype, filename} = await this.client.pupPage.evaluate(async (msgId) => {
+        const result = await this.client.pupPage.evaluate(async (msgId) => {
             const msg = window.Store.Msg.get(msgId);
+            
+            if(msg.mediaData.mediaStage != 'RESOLVED') {
+                // try to resolve media
+                await msg.downloadMedia(true, 1);
+            }
+            
+            if(msg.mediaData.mediaStage.includes('ERROR')) {
+                // media could not be downloaded
+                return undefined;
+            }
+
             const buffer = await window.WWebJS.downloadBuffer(msg.clientUrl);
             const decrypted = await window.Store.CryptoLib.decryptE2EMedia(msg.type, buffer, msg.mediaKey, msg.mimetype);
             const data = await window.WWebJS.readBlobAsync(decrypted._blob);
@@ -200,7 +224,8 @@ class Message extends Base {
 
         }, this.id._serialized);
 
-        return new MessageMedia(mimetype, data, filename);
+        if(!result) return undefined;
+        return new MessageMedia(result.mimetype, result.data, result.filename);
     }
 
     /**
