@@ -61,3 +61,6 @@ typings/
 
 # next.js build output
 .next
+
+#session whatsappwebjs json file 
+whatsapp-web.js/session.json
