@@ -34,6 +34,7 @@ if (fs.existsSync(SESSION_FILE_PATH))
 
 const client = new Client({ puppeteer: { headless: false }, session: sessionCfg });
 client.initialize();
+
 client.on('qr', (qr) =>
 {
     console.log('QR RECEIVED', qr);
