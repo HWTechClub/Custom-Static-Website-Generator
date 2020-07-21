@@ -1,5 +1,5 @@
-const { User } = require("../models/user");
-const { Website } = require("../models/website");
+const { User } = require("./user");
+const { Website } = require("./website");
 
 module.exports.data = new StructuredData();
 
