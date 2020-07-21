@@ -3,7 +3,19 @@
 
 *wg* -> Command wg help to get the avaialabe instructions
 *wg help* -> The following are the available commands:
-*wg create <company name> -> creates a framework for the website after getting details of the website
+*wg create <company name> -> creates a website without details
+
+# Note:
+After the user uses *wg create <company name>*. The bot should instruct the user to enter the rest of the details.
+To see the details to be entered, please check *website.js* under models folder.
+
+The commands should follow the rules below :
+*wg website firstName*
+*wg website lastName*
+...etc
+
+
+
 
 # Following commands only works when a website is created
 
@@ -23,6 +35,12 @@ If a user created a product without a website, the bot should handle the error a
 *wg product desc* <product-desc> -> set the description of the product
 *wg product image* <product-image> -> sets the image of the product. The caption of the image should be the command.
 *wg finished* -> creates the website and gives a link to the website maker
+
+# delete
+Users should be able to delete products and website
+*wg delete product <id>*
+*wg delete website <company name>*
+
 
 
 # Note:
