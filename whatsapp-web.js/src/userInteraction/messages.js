@@ -1,20 +1,26 @@
 
-const { Command } =  require("./commands");
-const { onWG } = require("../businessLogic/logic");
+const { Command } =  require("../models/commands");
+const logic = require("../businessLogic/logic");
 
 ///////////
 //add the commands here
 ///////////
 const commands = [
-
     new Command({
+        //User command
         command: 'wg',
-        message : [
-            `stop it and get some help by using the following command *wg help*`,
-            `Hope everything works well`
-        ] ,
+
+        //function to be executed
         callback : () => {  
-            onWG();
+
+            logic.onWG();
+            //mesage to be sent to the user
+            let message = [
+                `stop it and get some help by using the following command *wg help*`,
+                `Hope everything works well`
+            ];
+
+            return message;
         }
     }),
 
@@ -22,7 +28,7 @@ const commands = [
 
 
 
-module.exports=  onMessage = (message, client) => {
+const onMessage = (message, client) => {
 
     let command = null;
 
@@ -30,7 +36,7 @@ module.exports=  onMessage = (message, client) => {
     if(message.body.startsWith("wg"))
     {
         for (let c of commands){
-            if(c.getCommand() == message.body)
+            if(c.command == message.body)
             {
                 command = c;
                 break;
@@ -38,8 +44,8 @@ module.exports=  onMessage = (message, client) => {
         }
     
         if(command != null){
-            command.getCallback()();
-            for (let msg of command.getMessage())
+            let messageToBeSent = command.callback();
+            for (let msg of messageToBeSent)
             {
                 client.sendMessage(message.from, msg, new Object());
             }
@@ -48,5 +54,6 @@ module.exports=  onMessage = (message, client) => {
 
 };
 
+module.exports.onMessage = onMessage;
 
 //export default onMessage;
