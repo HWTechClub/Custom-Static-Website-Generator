@@ -9,21 +9,45 @@ In this project we will illustrate how to build a static web page using commands
 ## Installation
 Requirements : Node js and Npm 
 
-### To start web generator
+### Install web generator
 
+First, go to the folder named **website-generator**.  
+Then install all the node modules.
 ``` 
-cd website-generation
+cd website-generation   
+npm install
 ```
-Installation : https://github.com/Tech-club/Challenge-1/tree/master/website-generator#installation
 
+### Install whatsapp bot
 
-### To start whatsapp bot
+First, go to the folder named **whatsapp-web.js**.  
+Then install all the node modules.
 
 ``` 
 cd whatsapp-web.js
 npm install 
+```
+
+### Start the website generator
+Make sure you are in **website-generator** directory. Then type the following command :
+```
 npm start
 ```
+For more information on deploying the server in IPFS, please click the following link:  
+https://github.com/Tech-club/Challenge-1/tree/master/website-generator#installation
+
+### Start whatsapp bot
+
+Make sure you are in **whatsapp-web.js** directory. Then type the following command :
+```
+npm start
+```
+
+### Start generating websites with whatsapp
+
+You need to start both website-generator and whatsapp-bot.
+
+
 
 ### Contributors 
 1. Akilan Selvacoumar : as251@hw.ac.uk
