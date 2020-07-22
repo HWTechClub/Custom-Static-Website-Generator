@@ -4,7 +4,8 @@
   "description": "",
   "main": "test.js",
   "scripts": {
-    "test": "node website_test.js http://localhost:8004",
+    "test-web": "node website_test.js http://localhost:8004",
+    "test" : "mocha",
     "start": "node index.js"
   },
   "author": "",
@@ -12,5 +13,9 @@
   "dependencies": {
     "request": "^2.88.2",
     "whatsapp-web.js": "^1.7.0"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^8.0.1"
   }
 }
