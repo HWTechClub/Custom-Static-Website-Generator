@@ -1,21 +1,18 @@
+const { Entity } = require("./entity");
 const { User } = require("./user");
-const { Website } = require("./website");
 
 
 class StructuredData {
     
     constructor() {
-        this.data={};
+        this.entity = new Entity();
     }
-    
-    addUser(id){
-        if(this.data[id] != undefined)
-        {
-            this.data[id] = new User(id);
-            return true
-        }
-        
-        return false;
+    /**
+     * Adds a user 
+     * @param {User} user
+     */
+    addUser(user){
+        return this.entity.addData(user.id, user);
     }
     
     /**
@@ -24,17 +21,30 @@ class StructuredData {
      * @returns {User}
      */
     getUser(id){
-        return this.data[id];
+        return this.entity.getData(id);
     }
     
+    /**
+     * Delete the user with a specific id
+     * @param {string} id 
+     */
     deleteUser(id){
-        if(this.data[id] != undefined)
-        {
-            return delete this.data[id];
-            
-        }
-        
-        return false;
+        return this.entity.deleteData(id)
+    }
+
+    /**
+     * Check if a user with the given id exists
+     * @param {string} id 
+     */
+    isUser(id){
+        return this.entity.isData(id);
+    }
+
+    /**
+     * Clears all the data stored
+     */
+    clearData(){
+        this.entity.clearData();
     }
     
     
