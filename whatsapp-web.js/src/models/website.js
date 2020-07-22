@@ -1,3 +1,4 @@
+const { Entity } = require('./entity');
 const {Product} = require('./product');
 
 class Website {
@@ -16,7 +17,7 @@ class Website {
         //uses key value pair to store product
         //key is the productId of the product
         //value is the product itself
-        this.products = {};
+        this.products = new Entity();
     }
 
     /**
@@ -24,13 +25,7 @@ class Website {
      * @param {Product} product 
      */
     addProduct(product){
-        if(this.products[product.id] == undefined)
-        {
-            this.products[product.id] = product;
-            return true
-        }
-
-        return false;
+        return this.products.addData(product.id, product);
     }
 
     /**
@@ -39,7 +34,7 @@ class Website {
      * @returns {Product}
      */
     getProduct(productId){
-        return this.products[productId];
+        return this.products.getData(productId);
     }
 
     /**
@@ -47,12 +42,8 @@ class Website {
      * @param {string} productId 
      */
     deleteProduct(productId){
-        if(this.products[productId] != undefined)
-        {
-            return delete this.products[productId];
-        }
-
-        return false;
+        
+        return this.products.deleteData(productId);
     }
 
 

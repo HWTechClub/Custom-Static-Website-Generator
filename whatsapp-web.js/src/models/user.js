@@ -1,14 +1,16 @@
 
+const { Entity } = require('./entity');
 const {Website} = require('./website');
 
 class User{
 
+    /**
+     * 
+     * @param {string} id 
+     */
     constructor(id){
         this.id = id;
-        //uses key value pair to store website
-        //key is the companyName of the website
-        //value is the website itself
-        this.websites = {};
+        this.websites = new Entity();
     }
 
     /**
@@ -16,26 +18,15 @@ class User{
      * @param {Website} website 
      */
     addWebsite(website){
-        if(this.websites[website.companyName] != undefined)
-        {
-            return false;
-        }else{
-            this.websites[website.companyName] = website;
-            return true;
-        }
+        return this.websites.addData(website.companyName, website);
     }
 
     deleteWebsite(companyName){
-        if(this.websites[companyName] != undefined)
-        {
-            return delete this.websites[companyName];
-        }else{
-            return false
-        }
+        return this.websites.deleteData(companyName);
     }
 
     getWebsite(companyName){
-        return this.websites[companyName];
+        return this.websites.getData(companyName);
     }
 
 }
