@@ -41,6 +41,10 @@ class Entity {
         }
         return null;
     }
+
+    getAllData(){
+        return this.data;
+    }
 }
 
 module.exports.Entity = Entity;
