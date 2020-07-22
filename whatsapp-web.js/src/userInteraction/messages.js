@@ -28,7 +28,7 @@ const commands = [
 
 
 
-const onMessage = (message, client) => {
+module.exports= onMessage = (message, client) => {
 
     let command = null;
 
@@ -54,6 +54,6 @@ const onMessage = (message, client) => {
 
 };
 
-module.exports.onMessage = onMessage;
+
 
 //export default onMessage;
