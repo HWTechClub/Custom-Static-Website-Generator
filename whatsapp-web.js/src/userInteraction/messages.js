@@ -44,20 +44,7 @@ const commands = [
                  ];
                 return message;
             }
-            // Create a product and select it. At this point all the product properties will be default including the id will be empty
-            selected_product = new Product();
-            if(id==null)
-            {
-                // Setting up the product id if not given
-                id = Math.floor((Math.random() * 100000) + 1);
-                while(selected_website.products.isData(id))// This is will check if the generated id is already used
-                {
-                    id = Math.floor((Math.random() * 100000) + 1);
-                }
-            }
-            selected_product.id =id;
-            // Add a product to the selected website. We will add the id based on the count of the products on the website
-            selected_website.addProduct(selected_product)
+            selected_product= logic.addProduct(id,selected_website);
             //mesage to be sent to the user
             let message = [
                 `The product has been created with the id : ` + selected_product.id ,
@@ -83,9 +70,8 @@ const commands = [
                  ];
                 return message;
             }
-            // Find the product with the given id
-            selected_product = selected_website.products.deleteData(id);
-            if(selected_product == false)
+
+            if(logic.deleteProduct == false)
             {
                 let message = [
                     `No product with the given id`
@@ -96,7 +82,6 @@ const commands = [
             let message = [
                 `The product has been deleted with the id : ` + id 
             ];
-            selected_product =null;
             return message;
         }
     }),
@@ -120,11 +105,7 @@ const commands = [
             selected_product = selected_website.products.getData(id);
             if(selected_product == null)
             {
-                selected_product = new Product();
-                selected_product.id =id;
-                // Add a product to the selected website. We will add the id based on the count of the products on the website
-                selected_website.addProduct(selected_product)
-                //mesage to be sent to the user
+                logic.addProduct(id,selected_website);
                 let message = [
                     `There was no product with the give id. So a new product was created and selected with the id : ` + selected_product.id ,
                     `Now you can make change to the product with the following commands : \n1. wg product info \n2. wg product name <product-name> \n3. wg product cost <product-cost> \n4. wg product desc <product-desc> \n5. wg product image <product-image>`
