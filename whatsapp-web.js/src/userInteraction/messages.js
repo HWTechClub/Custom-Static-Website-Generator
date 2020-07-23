@@ -1,6 +1,11 @@
 
 const { Command } =  require("../models/commands");
 const logic = require("../businessLogic/logic");
+const { Website } = require("../models/website");
+const { Product } = require('../models/product');
+
+var selected_product = null;// Will keep track of the selected product
+var selected_website = new Website; // Selected website.
 
 ///////////
 //add the commands here
@@ -23,7 +28,269 @@ const commands = [
             return message;
         }
     }),
+    new Command({
+        //User command
+        command: `wg product new <id>`,
 
+        //function to be executed
+        callback : () => {  
+
+            logic.onWG();
+            var id;
+            if(selected_website==null)
+            {
+                let message = [
+                    `A website should be selected or created before creating a product `
+                 ];
+                return message;
+            }
+            // Create a product and select it. At this point all the product properties will be default including the id will be empty
+            selected_product = new Product();
+            if(id==null)
+            {
+                // Setting up the product id if not given
+                id = Math.floor((Math.random() * 100000) + 1);
+                while(selected_website.products.isData(id))// This is will check if the generated id is already used
+                {
+                    id = Math.floor((Math.random() * 100000) + 1);
+                }
+            }
+            selected_product.id =id;
+            // Add a product to the selected website. We will add the id based on the count of the products on the website
+            selected_website.addProduct(selected_product)
+            //mesage to be sent to the user
+            let message = [
+                `The product has been created with the id : ` + selected_product.id ,
+                `This product has been selected . \nNow you can make change to the product with the following commands : \n1. wg product info \n2. wg product name <product-name> \n3. wg product cost <product-cost> \n4. wg product desc <product-desc> \n5. wg product image <product-image>`
+            ];
+            
+            return message;
+        }
+    }),
+    new Command({
+        //User command
+        command: `wg delete product <id>`,
+
+        //function to be executed
+        callback : () => {  
+
+            logic.onWG();
+            var id ;
+            if(selected_website==null)
+            {
+                let message = [
+                    `A website should be selected or created before deleting  a product `
+                 ];
+                return message;
+            }
+            // Find the product with the given id
+            selected_product = selected_website.products.deleteData(id);
+            if(selected_product == false)
+            {
+                let message = [
+                    `No product with the given id`
+                ];
+                return message;
+            }
+
+            let message = [
+                `The product has been deleted with the id : ` + id 
+            ];
+            selected_product =null;
+            return message;
+        }
+    }),
+    new Command({
+        //User command
+        command: `wg product <id>`,
+
+        //function to be executed
+        callback : () => {  
+
+            logic.onWG();
+            var id ;
+            if(selected_website==null)
+            {
+                let message = [
+                    `A website should be selected or created before selecting a product `
+                 ];
+                return message;
+            }
+            // Find the product with the given id
+            selected_product = selected_website.products.getData(id);
+            if(selected_product == null)
+            {
+                selected_product = new Product();
+                selected_product.id =id;
+                // Add a product to the selected website. We will add the id based on the count of the products on the website
+                selected_website.addProduct(selected_product)
+                //mesage to be sent to the user
+                let message = [
+                    `There was no product with the give id. So a new product was created and selected with the id : ` + selected_product.id ,
+                    `Now you can make change to the product with the following commands : \n1. wg product info \n2. wg product name <product-name> \n3. wg product cost <product-cost> \n4. wg product desc <product-desc> \n5. wg product image <product-image>`
+                ];
+                
+                return message;
+            }
+
+            let message = [
+                `The product has been selected with the id : ` + id ,
+                'Now you can make change to the product with the following commands : \n1. wg product info \n2. wg product name <product-name> \n3. wg product cost <product-cost> \n4. wg product desc <product-desc> \n5. wg product image <product-image>'
+
+            ];
+
+            return message;
+        }
+    }),
+    new Command({
+        //User command
+        command: `wg product all`,
+
+        //function to be executed
+        callback : () => {  
+
+            logic.onWG();
+            if(selected_website==null)
+            {
+                let message = [
+                    `A website should be selected or created `
+                 ];
+                return message;
+            }
+            let message = [
+                'Your website has following products'
+            ];
+            for(let p of selected_website.products.getAllData().values())
+            {
+                let m = 'Product id: ' + p.id + '\nProduct Name : ' + p.name + '\nProduct description : '+ p.desc + '\nProduct Cost: ' + p.cost + '\nProduct Image : '+ p.image
+                message.push(m);
+            }
+
+            return message;
+        }
+    }),
+    new Command({
+        //User command
+        command: `wg product info`,
+
+        //function to be executed
+        callback : () => {  
+
+            logic.onWG();
+            if(selected_product == null)
+            {
+                let message = [
+                    `A product should be selected `
+                 ];
+                return message;
+            }
+            let message = [
+                'Product id: ' + p.id,
+                'Product Name : ' + p.name ,
+                'Product description : '+ p.desc ,
+                'Product Cost: ' + p.cost ,
+                'Product Image : '+ p.image
+               ];
+
+            return message;
+        }
+    }),
+    new Command({
+        //User command
+        command: `wg product name <product-name>`,
+
+        //function to be executed
+        callback : () => {  
+
+            logic.onWG();
+            given_name= null;
+            if(selected_product == null)
+            {
+                let message = [
+                    `A product should be selected `
+                 ];
+                return message;
+            }
+            selected_product.name= given_name;
+            let message = [
+                'The product name has been set to  '+ given_name
+               ];
+
+            return message;
+        }
+    }),
+    new Command({
+        //User command
+        command: `wg product cost <product-cost>`,
+
+        //function to be executed
+        callback : () => {  
+
+            logic.onWG();
+            given_cost= null;
+            if(selected_product == null)
+            {
+                let message = [
+                    `A product should be selected `
+                 ];
+                return message;
+            }
+            selected_product.cost= given_cost;
+            let message = [
+                'The product cost has been set to  '+ given_cost
+               ];
+
+            return message;
+        }
+    }),
+    new Command({
+        //User command
+        command: 'wg product desc <product-desc>',
+
+        //function to be executed
+        callback : () => {  
+
+            logic.onWG();
+            given_desc= null;
+            if(selected_product == null)
+            {
+                let message = [
+                    `A product should be selected `
+                 ];
+                return message;
+            }
+            selected_product.desc= given_desc;
+            let message = [
+                'The product description has been set to : '+ given_desc
+               ];
+
+            return message;
+        }
+    }),
+    new Command({
+        //User command
+        command: 'wg product image <product-image>',
+
+        //function to be executed
+        callback : () => {  
+
+            logic.onWG();
+            given_image= null;
+            if(selected_product == null)
+            {
+                let message = [
+                    `A product should be selected `
+                 ];
+                return message;
+            }
+            selected_product.image = given_image;
+            let message = [
+                'The product image has been set to : '+ given_image
+               ];
+
+            return message;
+        }
+    }),
 ];
 
 
@@ -52,7 +319,7 @@ module.exports= onMessage = (message, client) => {
         }
     }
 
-};
+}; 
 
 
 
