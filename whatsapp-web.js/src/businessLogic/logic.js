@@ -42,7 +42,3 @@ module.exports.deleteProduct = (id,website) => {
 
     return website.products.deleteData(id);
 }
-
-module.exports.deleteProduct = (id,website) => {
-    return website.products.deleteData(id);
-}

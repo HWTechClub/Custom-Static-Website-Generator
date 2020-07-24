@@ -16,7 +16,7 @@ const commands = [
         command: 'wg',
 
         //function to be executed
-        callback : () => {  
+        callback : (input) => {  
 
             logic.onWG();
             //mesage to be sent to the user
@@ -33,10 +33,9 @@ const commands = [
         command: `wg product new <id>`,
 
         //function to be executed
-        callback : () => {  
+        callback : (input) => {  
 
             logic.onWG();
-            var id;
             if(selected_website==null)
             {
                 let message = [
@@ -44,7 +43,7 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product= logic.addProduct(id,selected_website);
+            selected_product= logic.addProduct(input,selected_website);
             //mesage to be sent to the user
             let message = [
                 `The product has been created with the id : ` + selected_product.id ,
@@ -59,10 +58,9 @@ const commands = [
         command: `wg delete product <id>`,
 
         //function to be executed
-        callback : () => {  
+        callback : (input) => {  
 
             logic.onWG();
-            var id ;
             if(selected_website==null)
             {
                 let message = [
@@ -71,7 +69,7 @@ const commands = [
                 return message;
             }
 
-            if(logic.deleteProduct == false)
+            if(logic.deleteProduct(input,selected_website) == false)
             {
                 let message = [
                     `No product with the given id`
@@ -90,10 +88,9 @@ const commands = [
         command: `wg product <id>`,
 
         //function to be executed
-        callback : () => {  
+        callback : (input) => {  
 
             logic.onWG();
-            var id ;
             if(selected_website==null)
             {
                 let message = [
@@ -102,7 +99,7 @@ const commands = [
                 return message;
             }
             // Find the product with the given id
-            selected_product = selected_website.products.getData(id);
+            selected_product = selected_website.products.getData(input);
             if(selected_product == null)
             {
                 logic.addProduct(id,selected_website);
@@ -181,10 +178,9 @@ const commands = [
         command: `wg product name <product-name>`,
 
         //function to be executed
-        callback : () => {  
+        callback : (input) => {  
 
             logic.onWG();
-            given_name= null;
             if(selected_product == null)
             {
                 let message = [
@@ -192,7 +188,7 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product.name= given_name;
+            selected_product.name= input;
             let message = [
                 'The product name has been set to  '+ given_name
                ];
@@ -205,10 +201,9 @@ const commands = [
         command: `wg product cost <product-cost>`,
 
         //function to be executed
-        callback : () => {  
+        callback : (input) => {  
 
             logic.onWG();
-            given_cost= null;
             if(selected_product == null)
             {
                 let message = [
@@ -216,7 +211,7 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product.cost= given_cost;
+            selected_product.cost= input;
             let message = [
                 'The product cost has been set to  '+ given_cost
                ];
@@ -229,10 +224,9 @@ const commands = [
         command: 'wg product desc <product-desc>',
 
         //function to be executed
-        callback : () => {  
+        callback : (input) => {  
 
             logic.onWG();
-            given_desc= null;
             if(selected_product == null)
             {
                 let message = [
@@ -240,7 +234,7 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product.desc= given_desc;
+            selected_product.desc = input;
             let message = [
                 'The product description has been set to : '+ given_desc
                ];
@@ -253,10 +247,9 @@ const commands = [
         command: 'wg product image <product-image>',
 
         //function to be executed
-        callback : () => {  
+        callback : (input) => {  
 
             logic.onWG();
-            given_image= null;
             if(selected_product == null)
             {
                 let message = [
@@ -264,7 +257,7 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product.image = given_image;
+            selected_product.image = input;
             let message = [
                 'The product image has been set to : '+ given_image
                ];
@@ -284,7 +277,7 @@ module.exports= onMessage = (message, client) => {
     if(message.body.startsWith("wg"))
     {
         for (let c of commands){
-            if(c.command == message.body)
+            if(c.equals(message.body))
             {
                 command = c;
                 break;
@@ -292,7 +285,12 @@ module.exports= onMessage = (message, client) => {
         }
     
         if(command != null){
-            let messageToBeSent = command.callback();
+            let input = {};
+            if(command.requireInput){
+                input = command.getInput();
+            }
+
+            let messageToBeSent = command.callback(input);
             for (let msg of messageToBeSent)
             {
                 client.sendMessage(message.from, msg, new Object());
