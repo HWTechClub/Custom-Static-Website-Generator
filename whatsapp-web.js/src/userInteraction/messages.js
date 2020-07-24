@@ -11,7 +11,7 @@ const commands = [
         command: 'wg',
 
         //function to be executed
-        callback : () => {  
+        callback : (input) => {  
 
             logic.onWG();
             //mesage to be sent to the user
@@ -36,7 +36,7 @@ module.exports= onMessage = (message, client) => {
     if(message.body.startsWith("wg"))
     {
         for (let c of commands){
-            if(c.command == message.body)
+            if(c.equals(message.body))
             {
                 command = c;
                 break;
@@ -44,7 +44,12 @@ module.exports= onMessage = (message, client) => {
         }
     
         if(command != null){
-            let messageToBeSent = command.callback();
+            let input = {};
+            if(command.requireInput){
+                input = command.getInput();
+            }
+
+            let messageToBeSent = command.callback(input);
             for (let msg of messageToBeSent)
             {
                 client.sendMessage(message.from, msg, new Object());

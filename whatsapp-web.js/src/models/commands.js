@@ -10,7 +10,6 @@ class Command{
         this.requireInput = false;
         this.inputPos = [];
         this._requireInput();
-        this._getInputPosition();
     }
 
     /**
@@ -76,19 +75,6 @@ class Command{
         this.requireInput = matched != null && matched.length > 1;
     }
 
-    _getInputPosition(){
-        let splitCommand = this.command.split(' ');
-        let inputPos = [];
-        for (let i = 0; i < splitCommand.length; i++)
-        {
-            if(splitCommand[i].startsWith('<')){
-                inputPos.push(i);
-            }
-        }
-
-        this.inputPos = inputPos;
-    }
-
     /**
      * returns an array of string representing the inputs of the command
      * @param {string} message 
@@ -96,9 +82,14 @@ class Command{
     getInput(message){
 
         let splitMsg = message.split(' ');
-        let input = [];
-        for(let pos of this.inputPos){
-            input.push(splitMsg[pos]);
+        let splitCommand = this.command.split(' ');
+        let input = {};
+
+        for(let i = 0; i < splitMsg.length; i++){
+            if(splitCommand[i].startsWith('<')){
+                let key = splitCommand[i].slice(1, splitCommand[i].length-1);
+                input[key] = splitMsg[i];
+            }
         }
 
         return input;

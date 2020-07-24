@@ -119,19 +119,6 @@ describe('Command', () => {
         
         expect(a.equals(message)).to.false;
     });
-    
-    it('Test : _getInputPosition()', () => {
-
-        let a = new Command({
-            command: "wg create <id>",
-            callback: () => {
-    
-            } 
-        });
-
-        expect(a.inputPos[0]).to.equal(2);
-        
-    })
 
     it('Test : getInput() with 1 input', () => {
 
@@ -144,7 +131,7 @@ describe('Command', () => {
             } 
         });
 
-        expect(a.getInput(message)[0]).to.equal('p12');
+        expect(a.getInput(message)['id']).to.equal('p12');
     });
 
     it('Test : getInput() with 2 input', () => {
@@ -158,10 +145,10 @@ describe('Command', () => {
             } 
         });
 
-        expect(a.getInput(message)[0]).to.equal('p12');
-        expect(a.getInput(message)[1]).to.equal('pikachu');
+        expect(a.getInput(message)['id']).to.equal('p12');
+        expect(a.getInput(message)['name']).to.equal('pikachu');
     });
 
-    
+
 
 });
