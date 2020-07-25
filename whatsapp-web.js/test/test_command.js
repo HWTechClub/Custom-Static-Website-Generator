@@ -91,6 +91,21 @@ describe('Command', () => {
 
     });
 
+    it.only('Test : equals() with different message', () => {
+
+        let message = 'wg website web';
+
+        let a = new Command({
+            command: "wg create <id>",
+            callback: () => {
+
+            } 
+        });
+               
+        expect(a.equals(message)).to.false;
+
+    });
+
     it('Test : equals() with spelling error', () => {
 
         let message = 'wg websit';
