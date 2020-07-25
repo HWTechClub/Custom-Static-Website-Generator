@@ -45,7 +45,7 @@ class Command{
                     //else return false
                     if(splitMsg[i] == splitCommand[i]){
                         continue;
-                    }else if(splitCommand[i].match(/[<>]/g).length > 1){
+                    }else if(splitCommand[i].match(/[<>]/g) != null){
                         continue;
                     }else{
                         return false;
