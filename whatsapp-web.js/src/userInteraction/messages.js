@@ -5,7 +5,7 @@ const { Website } = require("../models/website");
 const { Product } = require('../models/product');
 
 var selected_product = null;// Will keep track of the selected product
-var selected_website = new Website; // Selected website.
+var selected_website = null; // Selected website.
 
 ///////////
 //add the commands here
@@ -43,7 +43,7 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product= logic.addProduct(input,selected_website);
+            selected_product= logic.addProduct(input['id'],selected_website);
             //mesage to be sent to the user
             let message = [
                 `The product has been created with the id : ` + selected_product.id ,
@@ -55,7 +55,7 @@ const commands = [
     }),
     new Command({
         //User command
-        command: `wg delete product <id>`,
+        command: `wg product delete <id>`,
 
         //function to be executed
         callback : (input) => {  
@@ -69,7 +69,7 @@ const commands = [
                 return message;
             }
 
-            if(logic.deleteProduct(input,selected_website) == false)
+            if(logic.deleteProduct(input['id'],selected_website) == false)
             {
                 let message = [
                     `No product with the given id`
@@ -99,7 +99,7 @@ const commands = [
                 return message;
             }
             // Find the product with the given id
-            selected_product = selected_website.products.getData(input);
+            selected_product = selected_website.products.getData(input['id']);
             if(selected_product == null)
             {
                 logic.addProduct(id,selected_website);
@@ -188,7 +188,7 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product.name= input;
+            selected_product.name= input['product-name'];
             let message = [
                 'The product name has been set to  '+ given_name
                ];
@@ -211,7 +211,7 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product.cost= input;
+            selected_product.cost= input['product-cost'];
             let message = [
                 'The product cost has been set to  '+ given_cost
                ];
@@ -234,7 +234,7 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product.desc = input;
+            selected_product.desc = input['product-desc'];
             let message = [
                 'The product description has been set to : '+ given_desc
                ];
@@ -257,7 +257,7 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product.image = input;
+            selected_product.image = input['product-image'];
             let message = [
                 'The product image has been set to : '+ given_image
                ];
