@@ -35,7 +35,6 @@ const commands = [
         //function to be executed
         callback : (input) => {  
 
-            logic.onWG();
             if(selected_website==null)
             {
                 let message = [
@@ -60,7 +59,6 @@ const commands = [
         //function to be executed
         callback : (input) => {  
 
-            logic.onWG();
             if(selected_website==null)
             {
                 let message = [
@@ -90,7 +88,6 @@ const commands = [
         //function to be executed
         callback : (input) => {  
 
-            logic.onWG();
             if(selected_website==null)
             {
                 let message = [
@@ -127,7 +124,6 @@ const commands = [
         //function to be executed
         callback : () => {  
 
-            logic.onWG();
             if(selected_website==null)
             {
                 let message = [
@@ -154,7 +150,6 @@ const commands = [
         //function to be executed
         callback : () => {  
 
-            logic.onWG();
             if(selected_product == null)
             {
                 let message = [
@@ -180,7 +175,6 @@ const commands = [
         //function to be executed
         callback : (input) => {  
 
-            logic.onWG();
             if(selected_product == null)
             {
                 let message = [
@@ -203,7 +197,6 @@ const commands = [
         //function to be executed
         callback : (input) => {  
 
-            logic.onWG();
             if(selected_product == null)
             {
                 let message = [
@@ -226,7 +219,6 @@ const commands = [
         //function to be executed
         callback : (input) => {  
 
-            logic.onWG();
             if(selected_product == null)
             {
                 let message = [
@@ -249,7 +241,6 @@ const commands = [
         //function to be executed
         callback : (input) => {  
 
-            logic.onWG();
             if(selected_product == null)
             {
                 let message = [
