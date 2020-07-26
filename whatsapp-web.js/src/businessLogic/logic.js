@@ -51,61 +51,122 @@ module.exports.comp = (input) =>
     let create_company = [
         `welcome to building your own website!`,
         `We would like you add the following details:`,
-        `wg website firstname <First Name>`, 
-        `wg website lastname <Last Name>`,
-        `wg website companyname <Company name>`, 
-        `wg website logourl <Logo URL>`,
-        `Banner URL`, 
-        `Description`, 
-        `Email`
+        `wg website firstname *<First_Name>*`, 
+        `wg website lastname *<Last_Name>*`,
+        `wg website companyname *<Company_name>*`, 
+        `wg website logo *<Logo_URL>*`,
+        `wg website banner *<Banner_URL>*`, 
+        `wg website description *<Description>*`, 
+        `wg website email *<Email>*`,
+        `For adding information use *wg website <firstname>*`,
+       
     ];
-   
+    Website.companyName = input;
+    if(Website.companyName == null)
+    {
+        create_company = [`you have not input your company name. Please try again.`];
+    }
    return create_company;
 
 }
 
-module.exports.fn = (input) =>
-{
-    let fName = [
-        `first name has been added`
-    ];
-   
-   return fName;
 
+module.exports.fn = (fdata) =>
+{
+    
+
+
+    let info = [`your first name is:` + fdata
+                ];
+                
+
+
+                if(Website.companyName == null)
+                {
+                    info = [`you have not input your company name. Please try again.`]
+                }
+                else
+                {
+                    Website.firstname = fdata;
+                    console.log('this is data ' +Website.firstname);
+
+                }
+
+    return info;
 }
 
-module.exports.ln = (input) =>
+
+module.exports.ln = (ldata) =>
 {
+    
 
-
-    let lName = [
-        `last name has been added`
+    let info = 
+    [`your last name is: ` + ldata
     ];
-   
-   return lName;
 
+                if(Website.companyName == null)
+                {
+                   info = [`company name has not been used`];
+                }
+                else if(Website.firstname == null)
+                {
+                    info = [`you have not insert first name.`];
+                }
+                else
+                {
+                    Website.lastname = ldata;
+                    console.log('lname added');
+                }
+                
+    return info;
 }
 
-module.exports.cn = (input) =>
+module.exports.cn = (cdata) =>
 {
+    
 
+    let info = [`your company name is: ` + cdata
+                ];
+                
+         if(Website.firstname == null)
+         {
+            info = [`you have not insert first name.`];
+         }
+         else if(Website.lastname == null)
+         {
+            info = [`you have not insert last name.`];
+         }
+         else(Website.companyName != cdata)
+         {
+             Website.companyName = cdata;
+             info = [`your company name has been changed to` +cdata];
+             console.log('this is data ' +Website.companyName);
+         }
 
-    let cName = [
-        `company name has been added`
-    ];
-   
-   return cName;
-
+    return info;
 }
 
-module.exports.logo = (input) =>
-{
+module.exports.logourl = (ldata) =>
+{    
 
-
-    let lo = [
-        `logo has been added`
-    ];
-   
-   return lo;
-
+    let info = [`the data that you added are as follow:`,
+                    `company Name: ` + ldata
+                ];
+                if(Website.companyName == null)
+                {
+                    info = [`you have not input your company name. Please try again.`]
+                }
+                else if(Website.firstname == null)
+                {
+                   info = [`you have not insert first name.`];
+                }
+                else if(Website.lastname == null)
+                {
+                   info = [`you have not insert last name.`];
+                }
+                else
+                {
+                    Website.logoUrl = ldata
+                }
+    return info;
 }

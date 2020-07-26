@@ -60,90 +60,150 @@ const commands = [
         }
     }),
     
-
-
-        new Command({
+    new Command({
         //User command
-        command: 'wg website firstname <f_name>', 
+        
+        command: 'wg website firstname <firstName>', 
 
         //function to be executed
         callback : (input) =>
-        {  
+         {  
             
             logic.onWG();
+           
+            //cdata = input['company'];
+            fdata = input['firstName'];
+
+           
+           info =  logic.fn(fdata);
+           return info;
             
-          inputting = input['f_name'];
-           fname =  logic.fn();
-           return fname;
+        }
+    }),
+
+    //     new Command({
+    //     //User command
+    //     command: 'wg website firstname <f_name>', 
+
+    //     //function to be executed
+    //     callback : (input) =>
+    //     {  
+            
+    //         logic.onWG();
+            
+    //       inputting = input['f_name'];
+    //        fname =  logic.fn(input);
+    //        return fname;
+            
+    //     }
+    // }),
+    new Command({
+        //User command
+        
+        command: 'wg website lastname <lastname>', 
+
+        //function to be executed
+        callback : (input) =>
+         {  
+            
+            logic.onWG();
+           
+            //cdata = input['company'];
+            ldata = input['lastname'];
+
+           
+           info =  logic.ln(ldata);
+           return info;
             
         }
     }),
 
     new Command({
         //User command
-        command: 'wg website lastname <l_name>', 
-
         
+        command: 'wg website companyname <cname>', 
+
         //function to be executed
         callback : (input) =>
-        {  
+         {  
             
             logic.onWG();
-            
-            
- 
-                inputting = input['l_name'];
-                
-                lname =  logic.ln();
-                return lname;
-            
+           
+            //cdata = input['company'];
+            cdata = input['cname'];
+
+           
+           info =  logic.cn(cdata);
+           return info;
             
         }
     }),
 
     new Command({
         //User command
-        command: 'wg website companyname <c_name>', 
-
         
+        command: 'wg website logo <url>', 
+
         //function to be executed
         callback : (input) =>
-        {  
+         {  
             
             logic.onWG();
-            
-            
- 
-                inputting = input['c_name'];
-                
-                cname =  logic.cn();
-                return cname;
-            
+           
+            //cdata = input['company'];
+            logoU = input['url'];
+
+           
+           info =  logic.logourl(logoU);
+           return info;
             
         }
     }),
 
-    new Command({
-        //User command
-        command: 'wg website logourl <logo_name>', 
+    // new Command({
+    //     //User command
+    //     command: 'wg website logo <logo_name>', 
 
         
-        //function to be executed
-        callback : (input) =>
-        {  
+    //     //function to be executed
+    //     callback : (input) =>
+    //     {  
             
-            logic.onWG();
+    //         logic.onWG();
             
             
  
-                inputting = input['logo_name'];
+    //             inputting = input['logo_name'];
                 
-                logoURL =  logic.logo();
-                return logoURL;
+    //             logoURL =  logic.logo(input);
+    //             return logoURL;
             
             
-        }
-    }),
+    //     }
+    // }),
+
+    //    new Command({
+    //     //User command
+        
+    //     command: 'wg website <firstName> <lastname> <Cname>', 
+
+    //     //function to be executed
+    //     callback : (input) =>
+    //      {  
+            
+    //         logic.onWG();
+           
+    //         //cdata = input['company'];
+    //         fdata = input['firstName'];
+    //         ldata = input['lastname'];
+    //         cdata = input['Cname'];
+
+           
+    //        info =  logic.comdetails(fdata, ldata, cdata);
+    //        return info;
+            
+    //     }
+    // }),
 
 ];
 
