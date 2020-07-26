@@ -4,7 +4,7 @@ const logic = require("../businessLogic/logic");
 const { Website } = require("../models/website");
 const { Product } = require('../models/product');
 
-var selected_product = null;// Will keep track of the selected product
+var selected_product = new Product;// Will keep track of the selected product
 var selected_website = null; // Selected website.
 
 ///////////
@@ -85,7 +85,7 @@ const commands = [
     }),
     new Command({
         //User command
-        command: `wg product <id>`,
+        command: `wg select product <id>`,
 
         //function to be executed
         callback : (input) => {  
@@ -99,7 +99,7 @@ const commands = [
                 return message;
             }
             // Find the product with the given id
-            selected_product = selected_website.products.getData(input['id']);
+            selected_product = selected_website.getProduct(input['id']);
             if(selected_product == null)
             {
                 logic.addProduct(id,selected_website);
@@ -112,7 +112,7 @@ const commands = [
             }
 
             let message = [
-                `The product has been selected with the id : ` + id ,
+                `The product has been selected with the id : ` + selected_product.id ,
                 'Now you can make change to the product with the following commands : \n1. wg product info \n2. wg product name <product-name> \n3. wg product cost <product-cost> \n4. wg product desc <product-desc> \n5. wg product image <product-image>'
 
             ];
@@ -136,9 +136,9 @@ const commands = [
                 return message;
             }
             let message = [
-                'Your website has following products'
+                'Your website has following products: '
             ];
-            for(let p of selected_website.products.getAllData().values())
+            for(let p of selected_website.getAllProduct())
             {
                 let m = 'Product id: ' + p.id + '\nProduct Name : ' + p.name + '\nProduct description : '+ p.desc + '\nProduct Cost: ' + p.cost + '\nProduct Image : '+ p.image
                 message.push(m);
@@ -163,11 +163,11 @@ const commands = [
                 return message;
             }
             let message = [
-                'Product id: ' + p.id,
-                'Product Name : ' + p.name ,
-                'Product description : '+ p.desc ,
-                'Product Cost: ' + p.cost ,
-                'Product Image : '+ p.image
+                'Product id: ' + selected_product.id,
+                'Product Name : ' + selected_product.name ,
+                'Product description : '+ selected_product.desc ,
+                'Product Cost: ' + selected_product.cost ,
+                'Product Image : '+ selected_product.image
                ];
 
             return message;
@@ -188,9 +188,9 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product.name= input['product-name'];
+            selected_product.setName(input['product-name']);
             let message = [
-                'The product name has been set to  '+ given_name
+                'The product name has been set to  '+ selected_product.name
                ];
 
             return message;
@@ -211,9 +211,9 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product.cost= input['product-cost'];
+            selected_product.setCost(input['product-cost']);
             let message = [
-                'The product cost has been set to  '+ given_cost
+                'The product cost has been set to  '+ selected_product.cost
                ];
 
             return message;
@@ -234,9 +234,9 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product.desc = input['product-desc'];
+            selected_product.setDesc(input['product-desc']);
             let message = [
-                'The product description has been set to : '+ given_desc
+                'The product description has been set to : '+ selected_product.desc
                ];
 
             return message;
@@ -257,9 +257,9 @@ const commands = [
                  ];
                 return message;
             }
-            selected_product.image = input['product-image'];
+            selected_product.setImage(input['product-image']);
             let message = [
-                'The product image has been set to : '+ given_image
+                'The product image has been set to : '+ selected_product.image
                ];
 
             return message;

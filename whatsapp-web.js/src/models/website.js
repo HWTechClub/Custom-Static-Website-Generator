@@ -39,6 +39,14 @@ class Website {
 
     /**
      * 
+     * @returns {[]} 
+     */
+    getAllProduct(){
+        return this.products.getAllData().values();
+    }
+
+    /**
+     * 
      * @param {string} productId 
      */
     deleteProduct(productId){
