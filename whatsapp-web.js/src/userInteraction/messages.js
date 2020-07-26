@@ -4,7 +4,7 @@ const logic = require("../businessLogic/logic");
 const { Website } = require("../models/website");
 const { Product } = require('../models/product');
 
-var selected_product = new Product;// Will keep track of the selected product
+var selected_product = null;// Will keep track of the selected product
 var selected_website = null; // Selected website.
 
 ///////////
