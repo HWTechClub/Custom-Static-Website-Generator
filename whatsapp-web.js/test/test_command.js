@@ -91,7 +91,7 @@ describe('Command', () => {
 
     });
 
-    it.only('Test : equals() with different message', () => {
+    it('Test : equals() with different message', () => {
 
         let message = 'wg website web';
 

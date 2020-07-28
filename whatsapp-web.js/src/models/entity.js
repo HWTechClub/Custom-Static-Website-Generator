@@ -9,7 +9,7 @@ class Entity {
 
     addData(key ,value){
         if(!this.isData(key)){
-            this.data[key] = value;
+            this.data.set(key, value);
             return true;
         }
         return false;
@@ -20,12 +20,13 @@ class Entity {
      * @param {string} key 
      */
     isData(key){
-        return this.data[key] != undefined ? true : false;
+        return this.data.has(key) ? true : false;
     }
 
     deleteData(key){
         if(this.isData(key)){
-            return delete this.data[key];
+            this.data.delete(key);
+            return true;
         }
         return false;
     }
@@ -37,7 +38,7 @@ class Entity {
 
     getData(key){
         if(this.isData(key)){
-            return this.data[key];
+            return this.data.get(key);
         }
         return null;
     }
