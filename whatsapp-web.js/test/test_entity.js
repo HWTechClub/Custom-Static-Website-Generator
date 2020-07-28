@@ -52,4 +52,17 @@ describe('Entity', () => {
         expect(a.getData('gada')).to.null;
     })
 
+    it('Test: getAllData', () => {
+        let a = new Entity();
+        a.addData('hello world', new Website('hello world'));
+        a.addData('gada', new Website('gada'));
+        a.addData('pagol', new Website('pagol'));
+
+        let websitegen  = a.getAllData().values();
+        for(let t of websitegen)
+        {
+            console.log(t.companyName);
+        }
+    })
+
 })
