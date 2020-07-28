@@ -83,7 +83,7 @@ const commands = [
     }),
     new Command({
         //User command
-        command: `wg select product <id>`,
+        command: `wg product select <id>`,
 
         //function to be executed
         callback : (input) => {  
@@ -99,7 +99,8 @@ const commands = [
             selected_product = selected_website.getProduct(input['id']);
             if(selected_product == null)
             {
-                logic.addProduct(id,selected_website);
+                logic.addProduct(input['id'],selected_website);
+                selected_product = selected_website.getProduct(input['id']);
                 let message = [
                     `There was no product with the give id. So a new product was created and selected with the id : ` + selected_product.id ,
                     `Now you can make change to the product with the following commands : \n1. wg product info \n2. wg product name <product-name> \n3. wg product cost <product-cost> \n4. wg product desc <product-desc> \n5. wg product image <product-image>`
@@ -136,7 +137,7 @@ const commands = [
             ];
             for(let p of selected_website.getAllProduct())
             {
-                let m = 'Product id: ' + p.id + '\nProduct Name : ' + p.name + '\nProduct description : '+ p.desc + '\nProduct Cost: ' + p.cost + '\nProduct Image : '+ p.image
+                let m = 'Product id: ' + p.id + '\nProduct Name : ' + p.name + '\nProduct description : '+ p.desc + '\nProduct Cost: ' + p.cost + '\nProduct Image : '+ p.image;
                 message.push(m);
             }
 
@@ -278,7 +279,7 @@ module.exports= onMessage = (message, client) => {
         if(command != null){
             let input = {};
             if(command.requireInput){
-                input = command.getInput();
+                input = command.getInput(message.body);
             }
 
             let messageToBeSent = command.callback(input);
