@@ -21,6 +21,12 @@ module.exports.onCreate = (id, companyName) => {
 
 
 
+/**
+ * A help function
+ * @param {void} nothing
+ * @return {help_signal} details on how to use the website
+ */
+
 module.exports.help = () =>
 {
     let help_signal = [
@@ -45,7 +51,11 @@ module.exports.help = () =>
     return help_signal;
 }
 
-
+/**
+ * wg create 
+ * @param {string} input of the company name
+ * @return {void} gives information on how to add details to website
+ */
 module.exports.comp = (input) =>
 {
     let create_company = [
@@ -70,13 +80,17 @@ module.exports.comp = (input) =>
 
 }
 
-
-module.exports.fn = (fdata) =>
+/**
+ *  wg website firstname
+ * @param {string} input of the firstname for website
+ * @return {void} informs you that first name has been added
+ */
+module.exports.firstName = (fdata) =>
 {
     
 
 
-    let info = [`your first name is:` + fdata
+    let info = [`your first name is:` + fdata 
                 ];
                 
 
@@ -95,13 +109,17 @@ module.exports.fn = (fdata) =>
     return info;
 }
 
-
-module.exports.ln = (ldata) =>
+/**
+ *  wg website lastname 
+ * @param {string} input of the last name for website
+ * @return {void} informs you that last name has been added
+ */
+module.exports.lastName = (ldata) =>
 {
     
 
     let info = 
-    [`your last name is: ` + ldata
+    [`your last name is: ` + ldata 
     ];
 
                 if(Website.companyName == null)
@@ -121,11 +139,16 @@ module.exports.ln = (ldata) =>
     return info;
 }
 
-module.exports.cn = (cdata) =>
+/**
+ *  wg website companyname
+ * @param {string} input of the companyname for website. In case you want to change the company name, you can do so here.
+ * @return {void} informs you that company name has been updated
+ */
+module.exports.CompanyName_website = (cdata) =>
 {
     
 
-    let info = [`your company name is: ` + cdata
+    let info = [`your company name is: ` + cdata 
                 ];
                 
          if(Website.firstname == null)
@@ -139,18 +162,23 @@ module.exports.cn = (cdata) =>
          else(Website.companyName != cdata)
          {
              Website.companyName = cdata;
-             info = [`your company name has been changed to` +cdata];
+             info = [`your company name has been changed to ` +cdata];
              console.log('this is data ' +Website.companyName);
          }
 
     return info;
 }
 
+/**
+ *  wg website logo
+ * @param {string} input of the logo URL for website
+ * @return {void} informs you that logo URL has been added
+ */
+
 module.exports.logourl = (ldata) =>
 {    
 
-    let info = [`the data that you added are as follow:`,
-                    `company Name: ` + ldata
+    let info = [`your logo is: ` + ldata 
                 ];
                 if(Website.companyName == null)
                 {
@@ -167,6 +195,126 @@ module.exports.logourl = (ldata) =>
                 else
                 {
                     Website.logoUrl = ldata
+                }
+    return info;
+}
+
+
+/**
+ *  wg website banner
+ * @param {string} input of the banner URL for website
+ * @return {void} informs you that banner URL has been added
+ */
+module.exports.bannerurl = (bannerdata) =>
+{    
+
+    let info = [`your banner is: ` + bannerdata 
+                ];
+                if(Website.companyName == null)
+                {
+                    info = [`you have not input your company name. Please try again.`]
+                }
+                else if(Website.firstname == null)
+                {
+                   info = [`you have not insert first name.`];
+                }
+                else if(Website.lastname == null)
+                {
+                   info = [`you have not insert last name.`];
+                }
+                else if(Website.logoUrl == null)
+                {
+                    info = [`you have not insert logo url`];
+                }
+                else
+                {
+                    Website.bannerUrl = bannerdata
+                }
+    return info;
+}
+
+
+/**
+ *  wg website description
+ * @param {string} input of the company description for website
+ * @return {void} informs you that description has been added
+ */
+module.exports.company_description = (descriptiondata) =>
+{    
+
+    let info = [`your company description is: ` + descriptiondata 
+                ];
+                if(Website.companyName == null)
+                {
+                    info = [`you have not input your company name. Please try again.`]
+                }
+                else if(Website.firstname == null)
+                {
+                   info = [`you have not insert first name.`];
+                }
+                else if(Website.lastname == null)
+                {
+                   info = [`you have not insert last name.`];
+                }
+                else if(Website.logoUrl == null)
+                {
+                    info = [`you have not insert logo url`];
+                }
+                else if(Website.bannerUrl == null)
+                {
+                    info = [`you have not insert banner url`];
+                }
+                else
+                {
+                    Website.desc = descriptiondata
+                }
+    return info;
+}
+
+
+
+
+
+/**
+ *  wg website email
+ * @param {string} input of the email for website
+ * @return {void} informs you that email has been added
+ * 
+ */
+
+
+module.exports.email = (email_data) =>
+{    
+ 
+    let info = [`your email is: `+ email_data 
+                ];
+                if(Website.companyName == null)
+                {
+                    info = [`you have not input your company name. Please try again.`]
+                }
+                else if(Website.firstname == null)
+                {
+                   info = [`you have not insert first name.`];
+                }
+                else if(Website.lastname == null)
+                {
+                   info = [`you have not insert last name.`];
+                }
+                else if(Website.logoUrl == null)
+                {
+                    info = [`you have not insert logo url`];
+                }
+                else if(Website.bannerUrl == null)
+                {
+                    info = [`you have not insert banner url`];
+                }
+                else if(Website.desc == null)
+                {
+                    info = [`you have not insert the description`];
+                }
+                else
+                {
+                    Website.email = email_data
                 }
     return info;
 }

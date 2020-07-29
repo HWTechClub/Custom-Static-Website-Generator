@@ -5,6 +5,8 @@ const logic = require("../businessLogic/logic");
 ///////////
 //add the commands here
 ///////////
+
+
 const commands = [
      new Command({
         //User command
@@ -25,8 +27,10 @@ const commands = [
     }),
 
 
+    //gives user information on how to create website
     new Command({
         //User command
+        
         command: 'wg help', 
 
         //function to be executed
@@ -41,6 +45,7 @@ const commands = [
         }
     }),
 
+    //helps user to create a website. The first step.
     new Command({
         //User command
         
@@ -60,6 +65,7 @@ const commands = [
         }
     }),
     
+    //Inputs user's first name for website
     new Command({
         //User command
         
@@ -75,28 +81,14 @@ const commands = [
             fdata = input['firstName'];
 
            
-           info =  logic.fn(fdata);
+           info =  logic.firstName(fdata);
            return info;
             
         }
     }),
 
-    //     new Command({
-    //     //User command
-    //     command: 'wg website firstname <f_name>', 
 
-    //     //function to be executed
-    //     callback : (input) =>
-    //     {  
-            
-    //         logic.onWG();
-            
-    //       inputting = input['f_name'];
-    //        fname =  logic.fn(input);
-    //        return fname;
-            
-    //     }
-    // }),
+    //inputs user last name in website
     new Command({
         //User command
         
@@ -112,12 +104,14 @@ const commands = [
             ldata = input['lastname'];
 
            
-           info =  logic.ln(ldata);
+           info =  logic.lastName(ldata);
            return info;
             
         }
     }),
 
+
+    //inputs user companyname;in case they want to update the name
     new Command({
         //User command
         
@@ -133,12 +127,13 @@ const commands = [
             cdata = input['cname'];
 
            
-           info =  logic.cn(cdata);
+           info =  logic.CompanyName_website(cdata);
            return info;
             
         }
     }),
 
+    //inputs the logo of the company to website using url of logo
     new Command({
         //User command
         
@@ -160,50 +155,69 @@ const commands = [
         }
     }),
 
-    // new Command({
-    //     //User command
-    //     command: 'wg website logo <logo_name>', 
 
+    //inputs the banner for the company to website using url of banner
+    new Command({
+        //User command
         
-    //     //function to be executed
-    //     callback : (input) =>
-    //     {  
-            
-    //         logic.onWG();
-            
-            
- 
-    //             inputting = input['logo_name'];
-                
-    //             logoURL =  logic.logo(input);
-    //             return logoURL;
-            
-            
-    //     }
-    // }),
+        command: 'wg website banner <bannerURL>', 
 
-    //    new Command({
-    //     //User command
-        
-    //     command: 'wg website <firstName> <lastname> <Cname>', 
-
-    //     //function to be executed
-    //     callback : (input) =>
-    //      {  
+        //function to be executed
+        callback : (input) =>
+         {  
             
-    //         logic.onWG();
+            logic.onWG();
            
-    //         //cdata = input['company'];
-    //         fdata = input['firstName'];
-    //         ldata = input['lastname'];
-    //         cdata = input['Cname'];
+            bannerU = input['bannerURL'];
 
            
-    //        info =  logic.comdetails(fdata, ldata, cdata);
-    //        return info;
+           info =  logic.bannerurl(bannerU);
+           return info;
             
-    //     }
-    // }),
+        }
+    }),
+
+    //inputs the description of the company to be seen in the website
+    new Command({
+        //User command
+        
+        command: 'wg website description <descript>', 
+
+        //function to be executed
+        callback : (input) =>
+         {  
+            
+            logic.onWG();
+           
+            websiteDescription = input['descript'];
+
+           
+           info =  logic.company_description(websiteDescription);
+           return info;
+            
+        }
+    }),
+
+    //inputs the email of the company for contacting.
+    new Command({
+        //User command
+        
+        command: 'wg website email <Email>', 
+
+        //function to be executed
+        callback : (input) =>
+         {  
+            
+            logic.onWG();
+           
+            mail = input['Email'];
+
+           
+           info =  logic.email(mail);
+           return info;
+            
+        }
+    }),
 
 ];
 
