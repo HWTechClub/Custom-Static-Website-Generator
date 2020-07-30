@@ -29,6 +29,15 @@ class User{
         return this.websites.getData(companyName);
     }
 
+    selectWebsite(companyName)
+    {
+        return this.websites.selectData(companyName);
+    }
+
+    getSelectedWebsite(){
+        return this.websites.selectedData;
+    }
+
 }
 
 module.exports.User = User;

@@ -54,6 +54,15 @@ class Website {
         return this.products.deleteData(productId);
     }
 
+    selectProduct(productId){
+        return this.products.selectData(productId);
+    }
+
+    getSelectedProduct()
+    {
+        return this.products.selectedData;
+    }
+
 
 }
 
