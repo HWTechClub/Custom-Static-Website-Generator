@@ -39,7 +39,7 @@ class Website {
 
     /**
      * 
-     * @returns {[]} 
+     * returns all the products in the website
      */
     getAllProduct(){
         return this.products.getAllData().values();
@@ -58,6 +58,9 @@ class Website {
         return this.products.selectData(productId);
     }
 
+    /**
+     * @returns {Product}
+     */
     getSelectedProduct()
     {
         return this.products.selectedData;

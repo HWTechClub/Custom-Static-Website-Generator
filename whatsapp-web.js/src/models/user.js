@@ -34,6 +34,9 @@ class User{
         return this.websites.selectData(companyName);
     }
 
+    /**
+     * @returns {Website}
+     */
     getSelectedWebsite(){
         return this.websites.selectedData;
     }
