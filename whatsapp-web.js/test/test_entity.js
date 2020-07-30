@@ -29,13 +29,13 @@ describe('Entity', () => {
         expect(a.isData('pagol')).to.false;
         expect(a.isData('hello world')).to.false;
     });
-
+    
     it('Test: getData', () => {
         let a = new Entity();
         a.addData('hello world', new Website('hello world'));
         a.addData('gada', new Website('gada'));
         a.addData('pagol', new Website('pagol'));
-
+        
         expect(a.getData('hello world').companyName).to.equal('hello world');
         expect(a.getData('gada').companyName).to.equal('gada');
         expect(a.getData('chu chu')).to.null;
@@ -51,18 +51,67 @@ describe('Entity', () => {
         a.deleteData('gada');
         expect(a.getData('gada')).to.null;
     })
-
+    
     it('Test: getAllData', () => {
         let a = new Entity();
         a.addData('hello world', new Website('hello world'));
         a.addData('gada', new Website('gada'));
         a.addData('pagol', new Website('pagol'));
-
+        
         let websitegen  = a.getAllData().values();
         for(let t of websitegen)
         {
             console.log(t.companyName);
         }
     })
+    
+    it('Test: selectData()', () => {
+        let a = new Entity();
+        a.addData('hello world', new Website('hello world'));
+        a.addData('gada', new Website('gada'));
+        a.addData('pagol', new Website('pagol'));
+        
+        a.selectData('gada');
+        
+        expect(a.selectedData).to.equals('gada');
+    });
+    
+    it.only('Test: selectedData() = false', () => {
+        let a = new Entity();
+        a.addData('hello world', new Website('hello world'));
+        a.addData('gada', new Website('gada'));
+        a.addData('pagol', new Website('pagol'));
+        a.selectData('tara');
+        expect(a.selectedData).to.equals('pagol');
+    });
+    
+    it('Test: selectedData when addData() is used', () => {
+        let a = new Entity();
+        a.addData('hello world', new Website('hello world'));
+        a.addData('gada', new Website('gada'));
+        a.addData('pagol', new Website('pagol'));
+        
+        expect(a.selectedData).to.equals('pagol');
+    });
 
+
+    it('Test : selectedData when clearData()', () => {
+        let a = new Entity();
+        a.addData('hello world', new Website('hello world'));
+        a.addData('gada', new Website('gada'));
+        a.addData('pagol', new Website('pagol'));
+        
+        a.clearData();
+    
+        expect(a.count).to.equal(0);
+        expect(a.isData("kruta")).to.false;
+        expect(a.isData("hello")).to.false;
+        expect(a.isData('pagol')).to.false;
+        expect(a.isData('hello world')).to.false;
+        expect(a.selectedData).to.null;
+    });
+
+
+    
+    
 })
