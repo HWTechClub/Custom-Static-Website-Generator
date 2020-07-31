@@ -10,8 +10,10 @@ var selected_website = null; // Selected website.
 ///////////
 //add the commands here
 ///////////
+
+
 const commands = [
-    new Command({
+     new Command({
         //User command
         command: 'wg',
 
