@@ -1,25 +1,270 @@
 const { Website } = require("../models/website");
 const { data } = require("../models/data");
+const { Product } = require('../models/product');
+const { User } = require('../models/user');
+const request = require('request');
 
-module.exports.onWG = () => {
-    console.log('hello world');
+/**
+ * user to be sent the message to
+ * @type {User}
+ */
+let user = null;
+
+/**
+ * input to be used in the function if exists
+ * @type {string}
+ */
+let input = null;
+
+const addProduct = (id) => {
+
+    // Create a product and select it.
+    //At this point all the product properties will be default
+    var product = new Product({id : id});
+    // Add a product to the selected website.
+    user.getSelectedWebsite().addProduct(product);
 }
+const check = ({checkFunction, callback}) => {
 
-module.exports.onCreate = (id, companyName) => {
-
-    //get the user 
-    let user = data.getUser(id);
-    if(user == undefined)
+    let checkValue = checkFunction();
+    //if check value is false
+    if(checkValue == '')
     {
-        data.addUser(id);
-        user = data.getUser(id);
+        return callback();
     }
 
-    //add the website with the company name
-    user.addWebsite(new Website(companyName));
+    return checkValue;
+}
+
+const checkSelectedWebsiteExist= () => {
+
+    if(user.getSelectedWebsite() == null)
+    {
+        return [
+            `A website should be selected or created 
+            To create website, please use the following command : `,
+            `*wg create <company-name>*`,
+
+        ];
+    }
+
+    return '';
+}
+
+const checkSelectedProductExist = () => {
+    
+    return check({
+        checkFunction : checkSelectedWebsiteExist,
+        callback : () => {
+            if(user.getSelectedWebsite().getSelectedProduct() == null)
+            {
+                return [
+                    `A product should be created or selected`
+                ]
+            }
+
+            return '';
+        }
+    });
+    
+}
+
+module.exports.setUser = (id) =>{
+
+    if(!data.isUser(id))
+    {
+        
+        data.addUser(new User(id));
+    }
+    user = data.getUser(id)
+};
+
+module.exports.setInput= (value) => {
+    input = value;
 }
 
 
+module.exports.onCreateProduct = () => {
+
+    return check({
+        checkFunction : checkSelectedWebsiteExist,
+        callback : () => {
+            //add the product
+            addProduct(input['id']);
+            
+            let selectedId = user.getSelectedWebsite().getSelectedProduct().id;
+        
+            //mesage to be sent to the user
+            let message = [
+                `The product has been created with the id : ${selectedId}`  ,
+                `
+                This product has been selected. 
+                Now you can make change to the product with the following commands : 
+                1. wg product info 
+                2. wg product name <product-name> 
+                3. wg product cost <product-cost> 
+                4. wg product desc <product-desc> 
+                5. wg product image <product-image>
+                `
+            ];
+            
+            return message;
+        }
+    });
+        
+}
+
+module.exports.onDeleteProduct = () => {
+
+    return check({
+        checkFunction : checkSelectedWebsiteExist,
+        callback : () => {
+
+            if(!user.getSelectedWebsite().deleteProduct(input['id']))
+            {
+                return [
+                    `No product with the given id`
+                ];
+            }
+        
+            return [
+                `The product has been deleted with the id : ` + input['id']
+            ];
+
+        }
+    });
+}
+
+module.exports.onSelectProduct = () => { 
+
+    
+    return check({
+        checkFunction : checkSelectedWebsiteExist,
+        callback : () => {
+
+            if(!user.getSelectedWebsite().selectProduct(input['id']))
+            {
+                return [
+                    `There was no product with the given id. Use the following command to get the list of all id's`,
+                    `wg product all`
+                ];
+            }
+        
+            return [
+                `The product has been selected with the id : ${user.getSelectedWebsite().getSelectedProduct().id}` ,
+                `
+                This product has been selected. 
+                Now you can make change to the product with the following commands : 
+                1. wg product info 
+                2. wg product name <product-name> 
+                3. wg product cost <product-cost> 
+                4. wg product desc <product-desc> 
+                5. wg product image <product-image>
+                `
+            ];
+
+        }
+    });
+}
+
+module.exports.onGetAllProducts = () => {
+
+    return check({
+        checkFunction : checkSelectedWebsiteExist,
+        callback : () => {
+            let message = [
+                'Your website has following products: '
+            ];
+        
+            for(let p of user.getSelectedWebsite().getAllProduct())
+            {
+                let m = 'Product id: ' + p.id + '\nProduct Name : ' + p.name + '\nProduct description : '+ p.desc + '\nProduct Cost: ' + p.cost + '\nProduct Image : '+ p.image;
+                message.push(m);
+            }
+        
+            return message;    
+        }
+    });
+     
+}
+
+module.exports.onGetProductInfo = () => {
+    
+    return check({
+        checkFunction : checkSelectedProductExist,
+        callback : () => {
+            let selected_product = user.getSelectedWebsite().getSelectedProduct();
+            return [
+                `
+                Product id: ${selected_product.id}
+                Product Name : ${selected_product.name}
+                Product description : ${selected_product.desc }
+                Product Cost: ${selected_product.cost}
+                Product Image : ${selected_product.image}
+                `
+            ];
+        }
+    });
+
+}
+
+module.exports.onSetProductName = () => {
+
+    return check({
+        checkFunction : checkSelectedProductExist,
+        callback : () => {
+            let selected_product = user.getSelectedWebsite().getSelectedProduct();
+            selected_product.setName(input['product-name']);
+            return [
+                'The product name has been set to  '+ selected_product.name
+            ];
+
+        }
+    });
+}
+
+module.exports.onSetProductCost = () => {
+    return check ({
+        checkFunction : checkSelectedProductExist,
+        callback : () => {
+            let selected_product = user.getSelectedWebsite().getSelectedProduct();
+            selected_product.setCost(input['product-cost']);
+            return[
+                'The product cost has been set to  '+ selected_product.cost
+            ];
+
+        }
+    });
+}
+
+module.exports.onSetProductDesc = () => {
+    return check({
+        checkFunction : checkSelectedProductExist,
+        callback : () => {
+            let selected_product = user.getSelectedWebsite().getSelectedProduct();
+            selected_product.setDesc(input['product-desc']);
+            let message = [
+                'The product cost has been set to  '+ selected_product.desc
+            ];
+            return message;
+        }
+    });
+}
+
+module.exports.onSetProductImage = () => {
+
+    return check({
+        checkFunction : checkSelectedProductExist,
+        callback : () => {
+            let selected_product = user.getSelectedWebsite().getSelectedProduct();
+            selected_product.setImage(input['product-image']);
+            let message = [
+                'The product cost has been set to  '+ selected_product.image
+            ];
+            return message;
+        }
+    });
+}
 
 /**
  * A help function
@@ -56,9 +301,11 @@ module.exports.help = () =>
  * @param {string} input of the company name
  * @return {void} gives information on how to add details to website
  */
-module.exports.comp = (input) =>
+module.exports.onCreateWebsite = () =>
 {
-    let create_company = [
+    user.addWebsite(new Website(input['company_name']));
+
+    return [
         `welcome to building your own website!`,
         `We would like you add the following details:`,
         `wg website firstname *<First_Name>*`, 
@@ -71,13 +318,30 @@ module.exports.comp = (input) =>
         `For adding information use *wg website <firstname>*`,
        
     ];
-    Website.companyName = input;
-    if(Website.companyName == null)
-    {
-        create_company = [`you have not input your company name. Please try again.`];
-    }
-   return create_company;
+}
 
+
+module.exports.onGetInfo = () => {
+    
+
+    return check({
+        checkFunction : checkSelectedWebsiteExist,
+        callback : () => {
+
+            let website = user.getSelectedWebsite();
+            return [
+                `
+                First Name : ${website.firstName}
+                Last Name : ${website.lastName}
+                Company Name (id) : ${website.companyName }
+                Logo : ${website.logo}
+                Banner : ${website.bannerUrl}
+                Description : ${website.desc}
+                Email : ${website.email}
+                `
+            ];
+        }
+    });
 }
 
 /**
@@ -85,28 +349,20 @@ module.exports.comp = (input) =>
  * @param {string} input of the firstname for website
  * @return {void} informs you that first name has been added
  */
-module.exports.firstName = (fdata) =>
+module.exports.onSetFirstName = () =>
 {
     
+    return check({
+        checkFunction : checkSelectedWebsiteExist,
+        callback : () => {
+
+            user.getSelectedWebsite().firstName = input['firstName'];
+    
+            return [`First name has been set to ${user.getSelectedWebsite().firstName}`];
+        }
+    });
 
 
-    let info = [`your first name is:` + fdata 
-                ];
-                
-
-
-                if(Website.companyName == null)
-                {
-                    info = [`you have not input your company name. Please try again.`]
-                }
-                else
-                {
-                    Website.firstname = fdata;
-                    console.log('this is data ' +Website.firstname);
-
-                }
-
-    return info;
 }
 
 /**
@@ -114,59 +370,18 @@ module.exports.firstName = (fdata) =>
  * @param {string} input of the last name for website
  * @return {void} informs you that last name has been added
  */
-module.exports.lastName = (ldata) =>
+module.exports.onSetLastName = () =>
 {
     
+    return check({
+        checkFunction : checkSelectedWebsiteExist,
+        callback : () => {
 
-    let info = 
-    [`your last name is: ` + ldata 
-    ];
-
-                if(Website.companyName == null)
-                {
-                   info = [`company name has not been used`];
-                }
-                else if(Website.firstname == null)
-                {
-                    info = [`you have not insert first name.`];
-                }
-                else
-                {
-                    Website.lastname = ldata;
-                    console.log('lname added');
-                }
-                
-    return info;
-}
-
-/**
- *  wg website companyname
- * @param {string} input of the companyname for website. In case you want to change the company name, you can do so here.
- * @return {void} informs you that company name has been updated
- */
-module.exports.CompanyName_website = (cdata) =>
-{
+            user.getSelectedWebsite().lastName = input['lastName'];
     
-
-    let info = [`your company name is: ` + cdata 
-                ];
-                
-         if(Website.firstname == null)
-         {
-            info = [`you have not insert first name.`];
-         }
-         else if(Website.lastname == null)
-         {
-            info = [`you have not insert last name.`];
-         }
-         else(Website.companyName != cdata)
-         {
-             Website.companyName = cdata;
-             info = [`your company name has been changed to ` +cdata];
-             console.log('this is data ' +Website.companyName);
-         }
-
-    return info;
+            return [`Last name has been set to ${user.getSelectedWebsite().lastName}`];
+        }
+    });
 }
 
 /**
@@ -175,28 +390,17 @@ module.exports.CompanyName_website = (cdata) =>
  * @return {void} informs you that logo URL has been added
  */
 
-module.exports.logourl = (ldata) =>
+module.exports.onSetLogo = () =>
 {    
+    check({
+        checkFunction : checkSelectedWebsiteExist,
+        callback: () => {
+            user.getSelectedWebsite().logoUrl = input['url'];
+    
+            return [`Logo has been set to ${user.getSelectedWebsite().logoUrl}`];
+        }
+    })
 
-    let info = [`your logo is: ` + ldata 
-                ];
-                if(Website.companyName == null)
-                {
-                    info = [`you have not input your company name. Please try again.`]
-                }
-                else if(Website.firstname == null)
-                {
-                   info = [`you have not insert first name.`];
-                }
-                else if(Website.lastname == null)
-                {
-                   info = [`you have not insert last name.`];
-                }
-                else
-                {
-                    Website.logoUrl = ldata
-                }
-    return info;
 }
 
 
@@ -205,32 +409,16 @@ module.exports.logourl = (ldata) =>
  * @param {string} input of the banner URL for website
  * @return {void} informs you that banner URL has been added
  */
-module.exports.bannerurl = (bannerdata) =>
+module.exports.onSetBanner = () =>
 {    
+    return check({
+        checkFunction : checkSelectedWebsiteExist,
+        callback : () => {
 
-    let info = [`your banner is: ` + bannerdata 
-                ];
-                if(Website.companyName == null)
-                {
-                    info = [`you have not input your company name. Please try again.`]
-                }
-                else if(Website.firstname == null)
-                {
-                   info = [`you have not insert first name.`];
-                }
-                else if(Website.lastname == null)
-                {
-                   info = [`you have not insert last name.`];
-                }
-                else if(Website.logoUrl == null)
-                {
-                    info = [`you have not insert logo url`];
-                }
-                else
-                {
-                    Website.bannerUrl = bannerdata
-                }
-    return info;
+            user.getSelectedWebsite().bannerUrl = input['bannerURL'];
+            return [`Banner has been set to ${user.getSelectedWebsite().bannerUrl}`];
+        }
+    });
 }
 
 
@@ -239,41 +427,17 @@ module.exports.bannerurl = (bannerdata) =>
  * @param {string} input of the company description for website
  * @return {void} informs you that description has been added
  */
-module.exports.company_description = (descriptiondata) =>
+module.exports.onSetDesc = (descriptiondata) =>
 {    
+    return check({
+        checkFunction : checkSelectedWebsiteExist,
+        callback : () => {
 
-    let info = [`your company description is: ` + descriptiondata 
-                ];
-                if(Website.companyName == null)
-                {
-                    info = [`you have not input your company name. Please try again.`]
-                }
-                else if(Website.firstname == null)
-                {
-                   info = [`you have not insert first name.`];
-                }
-                else if(Website.lastname == null)
-                {
-                   info = [`you have not insert last name.`];
-                }
-                else if(Website.logoUrl == null)
-                {
-                    info = [`you have not insert logo url`];
-                }
-                else if(Website.bannerUrl == null)
-                {
-                    info = [`you have not insert banner url`];
-                }
-                else
-                {
-                    Website.desc = descriptiondata
-                }
-    return info;
+            user.getSelectedWebsite().desc = input['desc'];
+            return [`Banner has been set to ${user.getSelectedWebsite().desc}`];
+        }
+    });
 }
-
-
-
-
 
 /**
  *  wg website email
@@ -283,38 +447,91 @@ module.exports.company_description = (descriptiondata) =>
  */
 
 
-module.exports.email = (email_data) =>
+module.exports.onSetEmail = () =>
 {    
- 
-    let info = [`your email is: `+ email_data 
-                ];
-                if(Website.companyName == null)
-                {
-                    info = [`you have not input your company name. Please try again.`]
-                }
-                else if(Website.firstname == null)
-                {
-                   info = [`you have not insert first name.`];
-                }
-                else if(Website.lastname == null)
-                {
-                   info = [`you have not insert last name.`];
-                }
-                else if(Website.logoUrl == null)
-                {
-                    info = [`you have not insert logo url`];
-                }
-                else if(Website.bannerUrl == null)
-                {
-                    info = [`you have not insert banner url`];
-                }
-                else if(Website.desc == null)
-                {
-                    info = [`you have not insert the description`];
-                }
-                else
-                {
-                    Website.email = email_data
-                }
-    return info;
+    return check({
+        checkFunction : checkSelectedWebsiteExist,
+        callback : () => {
+
+            user.getSelectedWebsite().email = input['email'];
+            return [`Email has been set to ${user.getSelectedWebsite().email}`];
+        }
+    });
+}
+
+module.exports.onWebsiteFinished = () => {
+    return check({
+        checkFunction : checkSelectedWebsiteExist,
+        callback : async () => {
+            //get json from the website
+            let json = user.getSelectedWebsite().toJson();
+            //creates a promise
+            //resolve and reject value is going to be returned
+            //resolve value = message to be sent
+            let res = new Promise( (resolve, reject) => {
+                request({
+                    url: process.argv[2]+"/generate",
+                    method: "POST",
+                    headers: {
+                        "content-type": "application/json",  // <--Very important!!!
+                    },
+                    body: json
+                }, (error, response, body) => {
+                    //send reject value in promise if error exist
+                    if(error)
+                    {
+                        return reject(error);
+                    }
+                    // messsage to be sent
+                    let returnStatement =  [
+                        `${process.argv[2]}/pages/${JSON.parse(response.body).directory}`,
+                        `*Website ID:* ${JSON.parse(response.body).directory}`,
+                        `*Important to remember the ID*`
+                    ];
+                    //send resolve value id
+                    resolve(returnStatement);
+                });
+            });
+
+            //waits for request to be completed
+            let msg = await res;
+            return msg;
+        }
+    });
+}
+
+module.exports.onDeployWebsite = () => {
+    return check({
+        checkFunction: checkSelectedProductExist,
+        callback : async () => {
+            let res = new Promise( (resolve, reject) => {
+                request({
+                    url: process.argv[2]+"/ipfsdeploy?id="+user.getSelectedWebsite().companyName,
+                    method: "GET",
+                    headers: {
+                        "content-type": "application/json",  // <--Very important!!!
+                    }
+                }, function (error, response, body){
+                    // reject error in promise
+                    if(error)
+                    {
+                        return reject(error);
+                    }
+                    // messsage to be sent
+                    let returnStatement =  [
+                        `https://ipfs.io/ipfs/${JSON.parse(response.body).data}`,
+                        `Takes around 10-30 minutues to deploy`,
+                        `Read more about IPFS https://ipfs.io/`
+                    ];
+                    //send resolve value id
+                    resolve(returnStatement);
+          
+                });
+            });
+
+            let msg = await res;
+            return msg;
+            
+        }
+    });
 }

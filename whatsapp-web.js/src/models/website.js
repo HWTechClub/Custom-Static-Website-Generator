@@ -39,11 +39,31 @@ class Website {
 
     /**
      * 
+     * returns all the products in the website
+     */
+    getAllProduct(){
+        return this.products.getAllData().values();
+    }
+
+    /**
+     * 
      * @param {string} productId 
      */
     deleteProduct(productId){
         
         return this.products.deleteData(productId);
+    }
+
+    selectProduct(productId){
+        return this.products.selectData(productId);
+    }
+
+    /**
+     * @returns {Product}
+     */
+    getSelectedProduct()
+    {
+        return this.products.selectedData;
     }
 
 
