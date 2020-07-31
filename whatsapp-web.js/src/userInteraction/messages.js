@@ -5,6 +5,7 @@ const { Website } = require("../models/website");
 const { Product } = require('../models/product');
 
 
+
 //commands and the corresponding function to be executed 
 //are input in the array
 const commands = [
