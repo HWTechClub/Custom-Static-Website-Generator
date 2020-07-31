@@ -4,14 +4,10 @@ const logic = require("../businessLogic/logic");
 const { Website } = require("../models/website");
 const { Product } = require('../models/product');
 
-var selected_product = null;// Will keep track of the selected product
-var selected_website = null; // Selected website.
-
-///////////
-//add the commands here
-///////////
 
 
+//commands and the corresponding function to be executed 
+//are input in the array
 const commands = [
      new Command({
         //User command
@@ -34,94 +30,203 @@ const commands = [
         //User command
         command: `wg product new <id>`,
         //function to be executed
-        callback : () =>  logic.onCreateProduct()
+        callback : logic.onCreateProduct
     }),
     new Command({
         //User command
         command: `wg product delete <id>`,
 
         //function to be executed
-        callback : () => logic.onDeleteProduct()
+        callback : logic.onDeleteProduct
     }),
     new Command({
         //User command
         command: `wg product select <id>`,
+        //function to be executed
+        callback : logic.onSelectProduct
+    }),
+        
+        
+    //gives user information on how to create website
+    new Command({
+        //User command
+        command: 'wg help', 
+        //function to be executed
+        callback : logic.help
+    }),
+
+    //helps user to create a website. The first step.
+    new Command({
+        //User command
+        command: 'wg create <company_name>', 
 
         //function to be executed
-        callback : () => logic.onSelectProduct()
+        callback : logic.onCreateWebsite
     }),
+    //Inputs user's first name for website
+    new Command({
+        //User command
+        
+        command: 'wg website firstname <firstName>', 
+
+        //function to be executed
+        callback : logic.onSetFirstName
+    }),
+
+
+    //inputs user last name in website
+    new Command({
+        //User command
+        
+        command: 'wg website lastname <lastName>', 
+
+        //function to be executed
+        callback : logic.onSetLastName
+    }),
+
+    //inputs the logo of the company to website using url of logo
+    new Command({
+        //User command
+        
+        command: 'wg website logo <url>', 
+
+        //function to be executed
+        callback : logic.onSetLogo
+    }),
+
+
+    //inputs the banner for the company to website using url of banner
+    new Command({
+        //User command
+        
+        command: 'wg website banner <bannerURL>', 
+
+        //function to be executed
+        callback : logic.onSetBanner
+    }),
+
+    //inputs the description of the company to be seen in the website
+    new Command({
+        //User command
+        
+        command: 'wg website desc <desc>', 
+
+        //function to be executed
+        callback : logic.onSetDesc
+    }),
+
+    //inputs the email of the company for contacting.
+    new Command({
+        //User command
+        
+        command: 'wg website email <email>', 
+
+        //function to be executed
+        callback : logic.onSetEmail
+    }),
+
+    new Command({
+        //User command
+        
+        command: 'wg website info', 
+
+        //function to be executed
+        callback : logic.onGetInfo
+    }),
+    new Command({
+        //User command
+        
+        command: 'wg website finished', 
+
+        //function to be executed
+        callback : logic.onWebsiteFinished
+    }),
+    //gives user information on how to create website
+
     new Command({
         //User command
         command: `wg product all`,
 
         //function to be executed
-        callback : () => logic.onGetAllProducts()
+        callback : logic.onGetAllProducts
     }),
     new Command({
         //User command
         command: `wg product info`,
 
         //function to be executed
-        callback : () => logic.onGetProductInfo()
+        callback : logic.onGetProductInfo
     }),
     new Command({
         //User command
         command: `wg product name <product-name>`,
 
         //function to be executed
-        callback : () => logic.onSetProductName()
+        callback : logic.onSetProductName
     }),
     new Command({
         //User command
         command: `wg product cost <product-cost>`,
 
         //function to be executed
-        callback : () => logic.onSetProductCost()
+        callback : logic.onSetProductCost
     }),
     new Command({
         //User command
         command: 'wg product desc <product-desc>',
 
         //function to be executed
-        callback : () => logic.onSetProductDesc()
+        callback : logic.onSetProductDesc
     }),
     new Command({
         //User command
         command: 'wg product image <product-image>',
 
         //function to be executed
-        callback : () => logic.onSetProductImage()
+        callback : logic.onSetProductImage
     }),
 ];
 
 
 
-module.exports= onMessage = (message, client) => {
+module.exports= onMessage = async (message, client) => {
 
     let command = null;
 
     //if the message start with wg then proceed
     if(message.body.startsWith("wg"))
     {
+        //loop through all the commands
         for (let c of commands){
+            //check if the message sent is equal to the commands
+            //if the message matches a command,
+            //then save the command in the command variable
             if(c.equals(message.body))
             {
                 command = c;
                 break;
             }
         }
-    
+        
+        //if the command is not null, implies, the message sent is a valid command
         if(command != null){
             let input = {};
+            //check if the command requires input
             if(command.requireInput){
                 input = command.getInput(message.body);
             }
-            
+            //determine the user
             logic.setUser(message.id.remote);
+            //determine the input
             logic.setInput(input);
 
-            let messageToBeSent = command.callback();
+            //call callback function in the command
+            //await is used, so that if a command is an async function
+            //the program will wait until it is finished
+            //the callback returns a message to be sent to the user
+            let messageToBeSent = await command.callback();
 
+            // send the message to the user
             for (let msg of messageToBeSent)
             {
                 client.sendMessage(message.from, msg, new Object());
