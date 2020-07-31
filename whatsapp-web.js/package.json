@@ -5,7 +5,7 @@
   "main": "test.js",
   "scripts": {
     "test-web": "node website_test.js http://localhost:8004",
-    "test" : "mocha",
+    "test": "mocha",
     "start": "node index.js"
   },
   "author": "",
