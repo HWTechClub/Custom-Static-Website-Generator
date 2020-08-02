@@ -52,7 +52,7 @@ exports.generate = function (req, res) {
   let templateContent = JSON.parse(template);
 
   for (var i = 0; i < templateContent.templates.length; i++) {
-    if (templateContent.templates[i].template_name == "Colo_Shop") {
+    if (templateContent.templates[i].template_name == req.body.template) {
 
       for (var j = 0; j < templateContent.templates[i].pages.length; j++) {
         //Copying html files can be removed in the future stages
@@ -67,18 +67,6 @@ exports.generate = function (req, res) {
     }
   }
 
-  /*fs.createReadStream('./public/Colo_Shop/index.html').pipe(fs.createWriteStream(dir + '/index.html'));
-  fs.createReadStream('./public/Colo_Shop/cart.html').pipe(fs.createWriteStream(dir + '/cart.html'));
-  fs.createReadStream('./public/Colo_Shop/contact.html').pipe(fs.createWriteStream(dir + '/contact.html'));
-
-  copy_folder('./public/Colo_Shop/styles', dir + '/styles');
-  copy_folder('./public/Colo_Shop/js', dir + '/js');
-  copy_folder('./public/Colo_Shop/plugins', dir + '/plugins');
-  copy_folder('./public/Colo_Shop/images', dir + '/images');
-
-  ejs2html('./public/Colo_Shop/index.ejs', req.body , dir, "index");
-  ejs2html('./public/Colo_Shop/cart.ejs', req.body , dir, "cart");
-  ejs2html('./public/Colo_Shop/contact.ejs', req.body , dir, "contact");*/
 
   const resp = {
     'directory': result

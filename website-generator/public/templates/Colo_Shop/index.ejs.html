@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-	<title>Heriot-Watt</title>
+	<title>Test123</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="description" content="Colo Shop Template">
@@ -87,7 +87,7 @@
 						<div class="col-lg-12 text-right">
 							<div class="logo_container">
 								<a href="#"><img
-										src="https://www.google.com/url?sa=i&amp;url=https%3A%2F%2Fen.wikipedia.org%2Fwiki%2FHeriot-Watt_University&amp;psig=AOvVaw2fm-eoyZxj8ZIUEULdjZ5_&amp;ust=1589820225686000&amp;source=images&amp;cd=vfe&amp;ved=0CAIQjRxqFwoTCJj1i4Osu-kCFQAAAAAdAAAAABAD"
+										src="https://hwtech.club/images/output-onlinepngtools.png"
 										class="img-fluid" style="height:5rem;" /></a>
 							</div>
 							<nav class="navbar">
@@ -129,7 +129,7 @@
 		<!-- Slider -->
 
 		<div class="main_slider"
-			style="background-image:url('https://ichef.bbci.co.uk/news/1024/cpsprodpb/E13E/production/_109726675_hwudubaineviewonline.jpg')">
+			style="background-image:url('https://i.ytimg.com/vi/SIQHKaMOCbU/maxresdefault.jpg')">
 			<div class="container fill_height">
 				<div class="row align-items-center fill_height">
 
@@ -171,15 +171,15 @@
 							<div class="product-item women">
 								<div class="product product_filter">
 									<div class="product_image">
-										<img src="https://www.raspberrypi.org/homepage-9df4b/static/hero-shot-33d83b8c5fa0933373dabcc9462b32a3.png" alt="">
+										<img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/141px-Java_programming_language_logo.svg.png" alt="">
 									</div>
 									<div class="favorite"></div>
 									<div class="product_info">
-										<h6 class="product_name"><a href="#"><a>Raspberry Pi</a></h6>
-										<div class="product_price">$400</div>
+										<h6 class="product_name"><a href="#"><a>test</a></h6>
+										<div class="product_price">$12</div>
 									</div>
 								</div>
-								<div class="red_button add_to_cart_button"><a onClick="additem('Raspberry Pi', 400)" style="color:white">Add to cart</a></div>
+								<div class="red_button add_to_cart_button"><a onClick="additem('test', 12)" style="color:white">Add to cart</a></div>
 							</div>
 							
 
@@ -220,13 +220,13 @@
 	<script>
 		$(document).ready(function () {
 
-			if (localStorage.getItem('Heriot-Watt') === null) {
+			if (localStorage.getItem('Test123') === null) {
 				console.log("here");
 				var arr = new Array();
-				localStorage.setItem('Heriot-Watt', JSON.stringify(arr));
+				localStorage.setItem('Test123', JSON.stringify(arr));
 			}
 
-			var arr_json = JSON.parse(localStorage.getItem('Heriot-Watt'));
+			var arr_json = JSON.parse(localStorage.getItem('Test123'));
 
 			$("#checkout_items").html(arr_json.length);
 			console.log(arr_json.length);
@@ -235,11 +235,11 @@
 
 		function additem(name, price) {
 			var data = { 'name': name, 'price': price };
-			var arr_json = JSON.parse(localStorage.getItem('Heriot-Watt'));
+			var arr_json = JSON.parse(localStorage.getItem('Test123'));
 			console.log(typeof (arr_json));
 			arr_json.push(data);
-			localStorage.setItem('Heriot-Watt', JSON.stringify(arr_json));
-			console.log(JSON.parse(localStorage.getItem('Heriot-Watt')));
+			localStorage.setItem('Test123', JSON.stringify(arr_json));
+			console.log(JSON.parse(localStorage.getItem('Test123')));
 			$('#checkout_items').html(arr_json.length);
 		}
 	</script>
