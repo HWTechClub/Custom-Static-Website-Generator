@@ -76,7 +76,7 @@ describe('Entity', () => {
         expect(a.selectedData).to.equals('gada');
     });
     
-    it.only('Test: selectedData() = false', () => {
+    it('Test: selectedData() = false', () => {
         let a = new Entity();
         a.addData('hello world', new Website('hello world'));
         a.addData('gada', new Website('gada'));

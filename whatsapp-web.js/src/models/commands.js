@@ -28,8 +28,10 @@ class Command{
         }else if(this.requireInput){
             //the command requires input
 
+
             let splitCommand = this.command.split(' ');
-            let splitMsg = msg.split(' ');
+            let splitMsg = this._getInputMessage(message);
+
 
             //check the number of words both has
             //if not same then return false
@@ -93,6 +95,19 @@ class Command{
         }
 
         return input;
+    }
+
+    _getInputMessage(msg){
+        let split = msg.split(/['"]/g);
+        if(split.length > 1)
+        {
+            let splitMsg = split[0].trim().split(' '); 
+            let inputs = split.slice(1).filter( el => el.trim() == "" ? null : el);
+            splitMsg = splitMsg.concat(inputs);  
+            return splitMsg;
+        }   
+
+        return msg.split(' ');        
     }
 
 }

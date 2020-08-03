@@ -164,6 +164,33 @@ describe('Command', () => {
         expect(a.getInput(message)['name']).to.equal('pikachu');
     });
 
+    it('Test : _getInputMessage() with a sentence', () => {
+        let a = new Command({command : 'wg website desc <desc>'});
+        let b = a._getInputMessage(`wg website desc "Hello everynyan, how are you"`);
+        expect(b[0]).to.equal('wg');
+        expect(b[1]).to.equal('website');
+        expect(b[2]).to.equal('desc');
+        expect(b[3]).to.equal('Hello everynyan, how are you');
+    })
+
+    it('Test : _getInputMessage() with multiple sentence input', () => {
+        let a = new Command({command : 'wg website desc <desc>'});
+        let b = a._getInputMessage(`wg website desc "Hello everynyan, how are you" "I am fine thank you"`);
+        expect(b[0]).to.equal('wg');
+        expect(b[1]).to.equal('website');
+        expect(b[2]).to.equal('desc');
+        expect(b[3]).to.equal('Hello everynyan, how are you');
+        expect(b[4]).to.equal('I am fine thank you');
+    })
+    it('Test : _getInputMessage() with single word', () => {
+        let a = new Command({command : 'wg website desc <desc>'});
+        let b = a._getInputMessage(`wg website desc Hello`);
+        expect(b[0]).to.equal('wg');
+        expect(b[1]).to.equal('website');
+        expect(b[2]).to.equal('desc');
+        expect(b[3]).to.equal('Hello');
+    })
+
 
 
 });
