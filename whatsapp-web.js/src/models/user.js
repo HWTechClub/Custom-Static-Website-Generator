@@ -38,7 +38,7 @@ class User{
      * @returns {Website}
      */
     getSelectedWebsite(){
-        return this.websites.selectedData;
+        return this.getWebsite(this.websites.selectedData);
     }
 
 }

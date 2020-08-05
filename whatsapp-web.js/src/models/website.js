@@ -63,7 +63,7 @@ class Website {
      */
     getSelectedProduct()
     {
-        return this.products.selectedData;
+        return this.getProduct(this.products.selectedData);
     }
 
 
