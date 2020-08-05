@@ -8,6 +8,8 @@ module.exports = function (app){
   // generate site
   app.post('/generate',home.convertCsv, home.generate);
 
+  app.post('/generate_with_json_data', home.generate);
+
   app.get('/template_info',home.template_info);
 
   app.get('/ipfsdeploy', home.deploy_ipfs);
