@@ -83,17 +83,16 @@ class Command{
      */
     getInput(message){
 
-        let splitMsg = message.split(' ');
+        let splitMsg = this._getInputMessage(message);
         let splitCommand = this.command.split(' ');
         let input = {};
-
+        let debug = '';
         for(let i = 0; i < splitMsg.length; i++){
             if(splitCommand[i].startsWith('<')){
                 let key = splitCommand[i].slice(1, splitCommand[i].length-1);
                 input[key] = splitMsg[i];
             }
         }
-
         return input;
     }
 
