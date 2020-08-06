@@ -2,6 +2,7 @@ const { Website } = require("../models/website");
 const { data } = require("../models/data");
 const { Product } = require('../models/product');
 const { User } = require('../models/user');
+const fs = require('fs');
 const request = require('request');
 
 /**
@@ -24,6 +25,7 @@ const addProduct = (id) => {
     // Add a product to the selected website.
     user.getSelectedWebsite().addProduct(product);
 }
+
 const check = ({checkFunction, callback}) => {
 
     let checkValue = checkFunction();
@@ -357,7 +359,7 @@ module.exports.onSetFirstName = () =>
         callback : () => {
 
             user.getSelectedWebsite().firstName = input['firstName'];
-    
+       
             return [`First name has been set to ${user.getSelectedWebsite().firstName}`];
         }
     });
@@ -534,4 +536,13 @@ module.exports.onDeployWebsite = () => {
             
         }
     });
+}
+
+
+const base64_decode = async (base64str, file) =>  {
+
+    var bitmap = await Buffer.from(base64str, 'base64');
+    await fs.writeFileSync(file, bitmap);
+    console.log('****** File created from base64 encoded string ******');
+
 }
