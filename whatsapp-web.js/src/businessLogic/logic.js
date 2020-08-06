@@ -360,11 +360,12 @@ module.exports.onGetInfo = () => {
                 First Name : ${website.firstName}
                 Last Name : ${website.lastName}
                 Company Name (id) : ${website.companyName }
-                Logo : ${website.logo}
-                Banner : ${website.bannerUrl}
                 Description : ${website.desc}
                 Email : ${website.email}
-                `
+                Banner :`, 
+                website.bannerUrl,
+                `Logo :`,
+                website.logo
             ];
         }
     });
