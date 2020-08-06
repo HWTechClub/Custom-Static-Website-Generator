@@ -1,12 +1,15 @@
+const fs = require('fs');
+
 class Command{
     
     /**
      * 
-     * @param {{string, function()}} param0 
+     * @param {{string, function(),boolean}} param0 
      */
-    constructor({command,callback}){
+    constructor({command,callback, requireMedia = false}){
         this.command = command;
         this.callback = callback;
+        this.requireMedia = requireMedia;
         this.requireInput = false;
         this.inputPos = [];
         this._requireInput();
@@ -30,7 +33,7 @@ class Command{
 
 
             let splitCommand = this.command.split(' ');
-            let splitMsg = this._getInputMessage(message);
+            let splitMsg = this._getSplitMessage(message);
 
 
             //check the number of words both has
@@ -70,6 +73,12 @@ class Command{
      * then the command requires input
      */
     _requireInput(){
+        if(this.requireMedia)
+        {
+            this.requireInput = true;
+            return;
+        }
+
         let msg = this.command;
 
         let matched = msg.match(/[<>]/g);
@@ -79,14 +88,28 @@ class Command{
 
     /**
      * returns an array of string representing the inputs of the command
-     * @param {string} message 
+     * @param {import("whatsapp-web.js").Message} message 
      */
-    getInput(message){
+    async getInput(message){
+        
+        if(this.requireMedia){
+            
+            return await this._getInputMedia(message);
+        }else{
 
-        let splitMsg = this._getInputMessage(message);
-        let splitCommand = this.command.split(' ');
+            return this._getInputMessage(message.body);
+        }
+    }
+    
+    /**
+     * 
+     * @param {string} msgString 
+     */
+    _getInputMessage(msgString){
+
         let input = {};
-        let debug = '';
+        let splitMsg = this._getSplitMessage(msgString);
+        let splitCommand = this.command.split(' ');
         for(let i = 0; i < splitMsg.length; i++){
             if(splitCommand[i].startsWith('<')){
                 let key = splitCommand[i].slice(1, splitCommand[i].length-1);
@@ -94,9 +117,14 @@ class Command{
             }
         }
         return input;
+
     }
 
-    _getInputMessage(msg){
+    /**
+     * 
+     * @param {string} msg 
+     */
+    _getSplitMessage(msg){
         let split = msg.split(/['"]/g);
         if(split.length > 1)
         {
@@ -107,6 +135,19 @@ class Command{
         }   
 
         return msg.split(' ');        
+    }
+
+    /**
+     * 
+     * @param {import("whatsapp-web.js").Message} message 
+     */
+    async _getInputMedia(message){
+        let input = {};
+        if(message.hasMedia){
+            let media = await message.downloadMedia();
+            input['media'] = media.data;
+        }
+        return input;
     }
 
 }

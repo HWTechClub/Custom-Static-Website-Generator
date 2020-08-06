@@ -135,7 +135,7 @@ describe('Command', () => {
         expect(a.equals(message)).to.false;
     });
 
-    it('Test : getInput() with 1 input', () => {
+    it('Test : _getInputMessage() with 1 input', () => {
 
         let message = 'wg create p12'
 
@@ -146,10 +146,10 @@ describe('Command', () => {
             } 
         });
 
-        expect(a.getInput(message)['id']).to.equal('p12');
+        expect(a._getInputMessage(message)['id']).to.equal('p12');
     });
 
-    it('Test : getInput() with 2 input', () => {
+    it('Test : _getInputMessage() with 2 input', () => {
 
         let message = 'wg create p12 pikachu'
 
@@ -160,31 +160,31 @@ describe('Command', () => {
             } 
         });
 
-        expect(a.getInput(message)['id']).to.equal('p12');
-        expect(a.getInput(message)['name']).to.equal('pikachu');
+        expect(a._getInputMessage(message)['id']).to.equal('p12');
+        expect(a._getInputMessage(message)['name']).to.equal('pikachu');
     });
 
-    it('Test : _getInputMessage() with a sentence', () => {
+    it('Test : _getSplitMessage() with a sentence', () => {
         let a = new Command({command : 'wg website desc <desc>'});
-        let b = a._getInputMessage(`wg website desc "Hello everynyan, how are you"`);
+        let b = a._getSplitMessage(`wg website desc "Hello everynyan, how are you"`);
         expect(b[0]).to.equal('wg');
         expect(b[1]).to.equal('website');
         expect(b[2]).to.equal('desc');
         expect(b[3]).to.equal('Hello everynyan, how are you');
     })
 
-    it('Test : _getInputMessage() with multiple sentence input', () => {
+    it('Test : _getSplitMessage() with multiple sentence input', () => {
         let a = new Command({command : 'wg website desc <desc>'});
-        let b = a._getInputMessage(`wg website desc "Hello everynyan, how are you" "I am fine thank you"`);
+        let b = a._getSplitMessage(`wg website desc "Hello everynyan, how are you" "I am fine thank you"`);
         expect(b[0]).to.equal('wg');
         expect(b[1]).to.equal('website');
         expect(b[2]).to.equal('desc');
         expect(b[3]).to.equal('Hello everynyan, how are you');
         expect(b[4]).to.equal('I am fine thank you');
     })
-    it('Test : _getInputMessage() with single word', () => {
+    it('Test : _getSplitMessage() with single word', () => {
         let a = new Command({command : 'wg website desc <desc>'});
-        let b = a._getInputMessage(`wg website desc Hello`);
+        let b = a._getSplitMessage(`wg website desc Hello`);
         expect(b[0]).to.equal('wg');
         expect(b[1]).to.equal('website');
         expect(b[2]).to.equal('desc');
