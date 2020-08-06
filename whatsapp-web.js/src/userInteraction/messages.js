@@ -87,11 +87,11 @@ const commands = [
     //inputs the logo of the company to website using url of logo
     new Command({
         //User command
+        command: 'wg website logo', 
         
-        command: 'wg website logo <url>', 
-
         //function to be executed
-        callback : logic.onSetLogo
+        callback : logic.onSetLogo,
+        requireMedia : true
     }),
 
 
@@ -180,10 +180,12 @@ const commands = [
     }),
     new Command({
         //User command
-        command: 'wg product image <product-image>',
+        command: 'wg product image',
 
         //function to be executed
-        callback : logic.onSetProductImage
+        callback : logic.onSetProductImage,
+
+        requireMedia: true
     }),
 ];
 

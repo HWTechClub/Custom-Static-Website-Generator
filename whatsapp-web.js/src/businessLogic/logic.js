@@ -4,6 +4,7 @@ const { Product } = require('../models/product');
 const { User } = require('../models/user');
 const fs = require('fs');
 const request = require('request');
+const {stripIndents} = require('common-tags');
 
 /**
  * user to be sent the message to
@@ -26,6 +27,7 @@ const addProduct = (id) => {
     user.getSelectedWebsite().addProduct(product);
 }
 
+
 const check = ({checkFunction, callback}) => {
 
     let checkValue = checkFunction();
@@ -38,15 +40,25 @@ const check = ({checkFunction, callback}) => {
     return checkValue;
 }
 
+const checkMediaExist = () => {
+    if(input['media'] == undefined){
+        return [
+            `A media should be attached with the message`,
+            `Please attach an image or file with the caption being the command`
+        ];
+    }
+
+    return '';
+}
+
 const checkSelectedWebsiteExist= () => {
 
     if(user.getSelectedWebsite() == null)
     {
         return [
-            `A website should be selected or created 
-            To create website, please use the following command : `,
+            `A website should be selected or created `,
+            `To create website, please use the following command : `,
             `*wg create <company-name>*`,
-
         ];
     }
 
@@ -99,14 +111,15 @@ module.exports.onCreateProduct = () => {
             //mesage to be sent to the user
             let message = [
                 `The product has been created with the id : ${selectedId}`  ,
-                `
+                //use stripIndents to strip the indentation 
+                stripIndents`
                 This product has been selected. 
                 Now you can make change to the product with the following commands : 
                 1. wg product info 
                 2. wg product name <product-name> 
                 3. wg product cost <product-cost> 
                 4. wg product desc <product-desc> 
-                5. wg product image <product-image>
+                5. wg product image *with an image attached*
                 `
             ];
             
@@ -154,14 +167,14 @@ module.exports.onSelectProduct = () => {
         
             return [
                 `The product has been selected with the id : ${user.getSelectedWebsite().getSelectedProduct().id}` ,
-                `
+                stripIndents`
                 This product has been selected. 
                 Now you can make change to the product with the following commands : 
                 1. wg product info 
                 2. wg product name <product-name> 
                 3. wg product cost <product-cost> 
                 4. wg product desc <product-desc> 
-                5. wg product image <product-image>
+                5. wg product image *with an image attached*
                 `
             ];
 
@@ -180,8 +193,9 @@ module.exports.onGetAllProducts = () => {
         
             for(let p of user.getSelectedWebsite().getAllProduct())
             {
-                let m = 'Product id: ' + p.id + '\nProduct Name : ' + p.name + '\nProduct description : '+ p.desc + '\nProduct Cost: ' + p.cost + '\nProduct Image : '+ p.image;
+                let m = 'Product id: ' + p.id + '\nProduct Name : ' + p.name + '\nProduct description : '+ p.desc + '\nProduct Cost: ' + p.cost + '\nProduct Image : ';
                 message.push(m);
+                message.push(p.image);
             }
         
             return message;    
@@ -197,13 +211,13 @@ module.exports.onGetProductInfo = () => {
         callback : () => {
             let selected_product = user.getSelectedWebsite().getSelectedProduct();
             return [
-                `
+                stripIndents`
                 Product id: ${selected_product.id}
                 Product Name : ${selected_product.name}
                 Product description : ${selected_product.desc }
                 Product Cost: ${selected_product.cost}
-                Product Image : ${selected_product.image}
-                `
+                Product Image :`,
+                selected_product.image
             ];
         }
     });
@@ -246,7 +260,7 @@ module.exports.onSetProductDesc = () => {
             let selected_product = user.getSelectedWebsite().getSelectedProduct();
             selected_product.setDesc(input['product-desc']);
             let message = [
-                'The product cost has been set to  '+ selected_product.desc
+                'The product desc has been set to  '+ selected_product.desc
             ];
             return message;
         }
@@ -258,12 +272,21 @@ module.exports.onSetProductImage = () => {
     return check({
         checkFunction : checkSelectedProductExist,
         callback : () => {
-            let selected_product = user.getSelectedWebsite().getSelectedProduct();
-            selected_product.setImage(input['product-image']);
-            let message = [
-                'The product cost has been set to  '+ selected_product.image
-            ];
-            return message;
+
+            return check({
+                checkFunction : checkMediaExist,
+                callback : () => {
+
+                    let selected_product = user.getSelectedWebsite().getSelectedProduct();
+                    selected_product.setImage(input['media']);
+                    let message = [
+                        'The product image has been set to the following image',
+                        selected_product.image
+                    ];
+                    return message;
+
+                }
+            });
         }
     });
 }
@@ -308,16 +331,17 @@ module.exports.onCreateWebsite = () =>
     user.addWebsite(new Website(input['company_name']));
 
     return [
-        `welcome to building your own website!`,
-        `We would like you add the following details:`,
-        `wg website firstname *<First_Name>*`, 
-        `wg website lastname *<Last_Name>*`,
-        `wg website companyname *<Company_name>*`, 
-        `wg website logo *<Logo_URL>*`,
-        `wg website banner *<Banner_URL>*`, 
-        `wg website description *<Description>*`, 
-        `wg website email *<Email>*`,
-        `For adding information use *wg website <firstname>*`,
+        stripIndents`
+        welcome to building your own website!
+        We would like you add the following details:
+        wg website firstname *<First_Name>*
+        wg website lastname *<Last_Name>*
+        wg website companyname *<Company_name>*
+        wg website logo *<Logo_URL>*
+        wg website banner *<Banner_URL>*
+        wg website description *<Description>*
+        wg website email *<Email>*
+        For adding information use *wg website <firstname>*`
        
     ];
 }
@@ -332,7 +356,7 @@ module.exports.onGetInfo = () => {
 
             let website = user.getSelectedWebsite();
             return [
-                `
+                stripIndents`
                 First Name : ${website.firstName}
                 Last Name : ${website.lastName}
                 Company Name (id) : ${website.companyName }
@@ -394,12 +418,24 @@ module.exports.onSetLastName = () =>
 
 module.exports.onSetLogo = () =>
 {    
-    check({
+    return check({
+        //check if website exist
         checkFunction : checkSelectedWebsiteExist,
         callback: () => {
-            user.getSelectedWebsite().logoUrl = input['url'];
-    
-            return [`Logo has been set to ${user.getSelectedWebsite().logoUrl}`];
+
+            return check({
+                //check if media exist
+                checkFunction: checkMediaExist,
+                callback : () => {
+                    user.getSelectedWebsite().logoUrl = input['media'];
+            
+                    return [
+                        `Logo has been set to the following logo`,
+                        user.getSelectedWebsite().logoUrl
+                    ];
+                }
+            });
+            
         }
     })
 
@@ -414,11 +450,21 @@ module.exports.onSetLogo = () =>
 module.exports.onSetBanner = () =>
 {    
     return check({
+        //check if website exist
         checkFunction : checkSelectedWebsiteExist,
         callback : () => {
+            //check if media exist
+            return check({
+                checkFunction : checkMediaExist,
+                callback :() => {
 
-            user.getSelectedWebsite().bannerUrl = input['bannerURL'];
-            return [`Banner has been set to ${user.getSelectedWebsite().bannerUrl}`];
+                    user.getSelectedWebsite().bannerUrl = input['media'];
+                    return [
+                        `Banner has been set to the following banner`,
+                        user.getSelectedWebsite().bannerUrl
+                    ];
+                }
+            })
         }
     });
 }

@@ -145,7 +145,7 @@ class Command{
         let input = {};
         if(message.hasMedia){
             let media = await message.downloadMedia();
-            input['media'] = media.data;
+            input['media'] = media;
         }
         return input;
     }
