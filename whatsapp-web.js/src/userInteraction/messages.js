@@ -188,7 +188,6 @@ const commands = [
 ];
 
 
-
 module.exports= onMessage = async (message, client) => {
 
     let command = null;
@@ -213,13 +212,12 @@ module.exports= onMessage = async (message, client) => {
             let input = {};
             //check if the command requires input
             if(command.requireInput){
-                input = command.getInput(message.body);
+                input = await command.getInput(message);
             }
             //determine the user
             logic.setUser(message.id.remote);
             //determine the input
             logic.setInput(input);
-
             //call callback function in the command
             //await is used, so that if a command is an async function
             //the program will wait until it is finished
