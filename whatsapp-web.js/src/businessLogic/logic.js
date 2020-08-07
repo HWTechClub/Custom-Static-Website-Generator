@@ -18,6 +18,22 @@ let user = null;
  */
 let input = null;
 
+
+const base64_decode = async (base64str, file) =>  {
+
+    var bitmap = await Buffer.from(base64str, 'base64');
+    await fs.writeFileSync(file, bitmap);
+    console.log('****** File created from base64 encoded string ******');
+
+}
+
+
+const saveImage = async (messageMedia, fileName) => {
+    let file = `../website-generator/public/images/${fileName}.jpg`;
+    await base64_decode(messageMedia.data, file);
+    return file;
+}
+
 const addProduct = (id) => {
 
     // Create a product and select it.
@@ -275,14 +291,20 @@ module.exports.onSetProductImage = () => {
 
             return check({
                 checkFunction : checkMediaExist,
-                callback : () => {
+                callback : async () => {
 
                     let selected_product = user.getSelectedWebsite().getSelectedProduct();
                     selected_product.setImage(input['media']);
+                    //filename to be set
+                    let filename = `${user.id.slice(3,10)}${user.getSelectedWebsite().companyName}${selected_product.id}`;
+                    //url for the image that are saved
+                    selected_product.imageUrl = await saveImage(input['media'], filename);
+
                     let message = [
                         'The product image has been set to the following image',
                         selected_product.image
                     ];
+
                     return message;
 
                 }
@@ -363,7 +385,7 @@ module.exports.onGetInfo = () => {
                 Description : ${website.desc}
                 Email : ${website.email}
                 Banner :`, 
-                website.bannerUrl,
+                website.banner,
                 `Logo :`,
                 website.logo
             ];
@@ -427,12 +449,14 @@ module.exports.onSetLogo = () =>
             return check({
                 //check if media exist
                 checkFunction: checkMediaExist,
-                callback : () => {
-                    user.getSelectedWebsite().logoUrl = input['media'];
-            
+                callback : async () => {
+
+                    user.getSelectedWebsite().logo = input['media'];
+                    user.getSelectedWebsite().logoUrl = await saveImage(input['media'], `${user.id.slice(3,10)}${user.getSelectedWebsite().companyName}logo`);
+                    
                     return [
                         `Logo has been set to the following logo`,
-                        user.getSelectedWebsite().logoUrl
+                        user.getSelectedWebsite().logo
                     ];
                 }
             });
@@ -457,12 +481,14 @@ module.exports.onSetBanner = () =>
             //check if media exist
             return check({
                 checkFunction : checkMediaExist,
-                callback :() => {
+                callback : async () => {
 
-                    user.getSelectedWebsite().bannerUrl = input['media'];
+                    user.getSelectedWebsite().banner = input['media'];
+                    user.getSelectedWebsite().bannerUrl = await saveImage(input['media'], `${user.id.slice(3,10)}${user.getSelectedWebsite().companyName}banner`);
+                    
                     return [
                         `Banner has been set to the following banner`,
-                        user.getSelectedWebsite().bannerUrl
+                        user.getSelectedWebsite().banner
                     ];
                 }
             })
@@ -586,10 +612,3 @@ module.exports.onDeployWebsite = () => {
 }
 
 
-const base64_decode = async (base64str, file) =>  {
-
-    var bitmap = await Buffer.from(base64str, 'base64');
-    await fs.writeFileSync(file, bitmap);
-    console.log('****** File created from base64 encoded string ******');
-
-}
