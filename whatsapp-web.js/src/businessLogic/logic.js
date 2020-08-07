@@ -2,7 +2,9 @@ const { Website } = require("../models/website");
 const { data } = require("../models/data");
 const { Product } = require('../models/product');
 const { User } = require('../models/user');
+const fs = require('fs');
 const request = require('request');
+const {stripIndents} = require('common-tags');
 
 /**
  * user to be sent the message to
@@ -16,6 +18,22 @@ let user = null;
  */
 let input = null;
 
+
+const base64_decode = async (base64str, file) =>  {
+
+    var bitmap = await Buffer.from(base64str, 'base64');
+    await fs.writeFileSync(file, bitmap);
+    console.log('****** File created from base64 encoded string ******');
+
+}
+
+
+const saveImage = async (messageMedia, fileName) => {
+    let file = `../website-generator/public/images/${fileName}.jpg`;
+    await base64_decode(messageMedia.data, file);
+    return file;
+}
+
 const addProduct = (id) => {
 
     // Create a product and select it.
@@ -24,6 +42,8 @@ const addProduct = (id) => {
     // Add a product to the selected website.
     user.getSelectedWebsite().addProduct(product);
 }
+
+
 const check = ({checkFunction, callback}) => {
 
     let checkValue = checkFunction();
@@ -36,15 +56,25 @@ const check = ({checkFunction, callback}) => {
     return checkValue;
 }
 
+const checkMediaExist = () => {
+    if(input['media'] == undefined){
+        return [
+            `A media should be attached with the message`,
+            `Please attach an image or file with the caption being the command`
+        ];
+    }
+
+    return '';
+}
+
 const checkSelectedWebsiteExist= () => {
 
     if(user.getSelectedWebsite() == null)
     {
         return [
-            `A website should be selected or created 
-            To create website, please use the following command : `,
+            `A website should be selected or created `,
+            `To create website, please use the following command : `,
             `*wg create <company-name>*`,
-
         ];
     }
 
@@ -97,14 +127,15 @@ module.exports.onCreateProduct = () => {
             //mesage to be sent to the user
             let message = [
                 `The product has been created with the id : ${selectedId}`  ,
-                `
+                //use stripIndents to strip the indentation 
+                stripIndents`
                 This product has been selected. 
                 Now you can make change to the product with the following commands : 
                 1. wg product info 
                 2. wg product name <product-name> 
                 3. wg product cost <product-cost> 
                 4. wg product desc <product-desc> 
-                5. wg product image <product-image>
+                5. wg product image *with an image attached*
                 `
             ];
             
@@ -152,14 +183,14 @@ module.exports.onSelectProduct = () => {
         
             return [
                 `The product has been selected with the id : ${user.getSelectedWebsite().getSelectedProduct().id}` ,
-                `
+                stripIndents`
                 This product has been selected. 
                 Now you can make change to the product with the following commands : 
                 1. wg product info 
                 2. wg product name <product-name> 
                 3. wg product cost <product-cost> 
                 4. wg product desc <product-desc> 
-                5. wg product image <product-image>
+                5. wg product image *with an image attached*
                 `
             ];
 
@@ -178,8 +209,9 @@ module.exports.onGetAllProducts = () => {
         
             for(let p of user.getSelectedWebsite().getAllProduct())
             {
-                let m = 'Product id: ' + p.id + '\nProduct Name : ' + p.name + '\nProduct description : '+ p.desc + '\nProduct Cost: ' + p.cost + '\nProduct Image : '+ p.image;
+                let m = 'Product id: ' + p.id + '\nProduct Name : ' + p.name + '\nProduct description : '+ p.desc + '\nProduct Cost: ' + p.cost + '\nProduct Image : ';
                 message.push(m);
+                message.push(p.image);
             }
         
             return message;    
@@ -195,13 +227,13 @@ module.exports.onGetProductInfo = () => {
         callback : () => {
             let selected_product = user.getSelectedWebsite().getSelectedProduct();
             return [
-                `
+                stripIndents`
                 Product id: ${selected_product.id}
                 Product Name : ${selected_product.name}
                 Product description : ${selected_product.desc }
                 Product Cost: ${selected_product.cost}
-                Product Image : ${selected_product.image}
-                `
+                Product Image :`,
+                selected_product.image
             ];
         }
     });
@@ -244,7 +276,7 @@ module.exports.onSetProductDesc = () => {
             let selected_product = user.getSelectedWebsite().getSelectedProduct();
             selected_product.setDesc(input['product-desc']);
             let message = [
-                'The product cost has been set to  '+ selected_product.desc
+                'The product desc has been set to  '+ selected_product.desc
             ];
             return message;
         }
@@ -256,12 +288,27 @@ module.exports.onSetProductImage = () => {
     return check({
         checkFunction : checkSelectedProductExist,
         callback : () => {
-            let selected_product = user.getSelectedWebsite().getSelectedProduct();
-            selected_product.setImage(input['product-image']);
-            let message = [
-                'The product cost has been set to  '+ selected_product.image
-            ];
-            return message;
+
+            return check({
+                checkFunction : checkMediaExist,
+                callback : async () => {
+
+                    let selected_product = user.getSelectedWebsite().getSelectedProduct();
+                    selected_product.setImage(input['media']);
+                    //filename to be set
+                    let filename = `${user.id.slice(3,10)}${user.getSelectedWebsite().companyName}${selected_product.id}`;
+                    //url for the image that are saved
+                    selected_product.imageUrl = await saveImage(input['media'], filename);
+
+                    let message = [
+                        'The product image has been set to the following image',
+                        selected_product.image
+                    ];
+
+                    return message;
+
+                }
+            });
         }
     });
 }
@@ -306,16 +353,17 @@ module.exports.onCreateWebsite = () =>
     user.addWebsite(new Website(input['company_name']));
 
     return [
-        `welcome to building your own website!`,
-        `We would like you add the following details:`,
-        `wg website firstname *<First_Name>*`, 
-        `wg website lastname *<Last_Name>*`,
-        `wg website companyname *<Company_name>*`, 
-        `wg website logo *<Logo_URL>*`,
-        `wg website banner *<Banner_URL>*`, 
-        `wg website description *<Description>*`, 
-        `wg website email *<Email>*`,
-        `For adding information use *wg website <firstname>*`,
+        stripIndents`
+        welcome to building your own website!
+        We would like you add the following details:
+        wg website firstname *<First_Name>*
+        wg website lastname *<Last_Name>*
+        wg website companyname *<Company_name>*
+        wg website logo *<Logo_URL>*
+        wg website banner *<Banner_URL>*
+        wg website description *<Description>*
+        wg website email *<Email>*
+        For adding information use *wg website <firstname>*`
        
     ];
 }
@@ -330,15 +378,16 @@ module.exports.onGetInfo = () => {
 
             let website = user.getSelectedWebsite();
             return [
-                `
+                stripIndents`
                 First Name : ${website.firstName}
                 Last Name : ${website.lastName}
                 Company Name (id) : ${website.companyName }
-                Logo : ${website.logo}
-                Banner : ${website.bannerUrl}
                 Description : ${website.desc}
                 Email : ${website.email}
-                `
+                Banner :`, 
+                website.banner,
+                `Logo :`,
+                website.logo
             ];
         }
     });
@@ -357,7 +406,7 @@ module.exports.onSetFirstName = () =>
         callback : () => {
 
             user.getSelectedWebsite().firstName = input['firstName'];
-    
+       
             return [`First name has been set to ${user.getSelectedWebsite().firstName}`];
         }
     });
@@ -392,12 +441,26 @@ module.exports.onSetLastName = () =>
 
 module.exports.onSetLogo = () =>
 {    
-    check({
+    return check({
+        //check if website exist
         checkFunction : checkSelectedWebsiteExist,
         callback: () => {
-            user.getSelectedWebsite().logoUrl = input['url'];
-    
-            return [`Logo has been set to ${user.getSelectedWebsite().logoUrl}`];
+
+            return check({
+                //check if media exist
+                checkFunction: checkMediaExist,
+                callback : async () => {
+
+                    user.getSelectedWebsite().logo = input['media'];
+                    user.getSelectedWebsite().logoUrl = await saveImage(input['media'], `${user.id.slice(3,10)}${user.getSelectedWebsite().companyName}logo`);
+                    
+                    return [
+                        `Logo has been set to the following logo`,
+                        user.getSelectedWebsite().logo
+                    ];
+                }
+            });
+            
         }
     })
 
@@ -412,11 +475,23 @@ module.exports.onSetLogo = () =>
 module.exports.onSetBanner = () =>
 {    
     return check({
+        //check if website exist
         checkFunction : checkSelectedWebsiteExist,
         callback : () => {
+            //check if media exist
+            return check({
+                checkFunction : checkMediaExist,
+                callback : async () => {
 
-            user.getSelectedWebsite().bannerUrl = input['bannerURL'];
-            return [`Banner has been set to ${user.getSelectedWebsite().bannerUrl}`];
+                    user.getSelectedWebsite().banner = input['media'];
+                    user.getSelectedWebsite().bannerUrl = await saveImage(input['media'], `${user.id.slice(3,10)}${user.getSelectedWebsite().companyName}banner`);
+                    
+                    return [
+                        `Banner has been set to the following banner`,
+                        user.getSelectedWebsite().banner
+                    ];
+                }
+            })
         }
     });
 }
@@ -535,3 +610,5 @@ module.exports.onDeployWebsite = () => {
         }
     });
 }
+
+

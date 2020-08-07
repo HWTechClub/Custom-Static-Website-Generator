@@ -87,11 +87,11 @@ const commands = [
     //inputs the logo of the company to website using url of logo
     new Command({
         //User command
+        command: 'wg website logo', 
         
-        command: 'wg website logo <url>', 
-
         //function to be executed
-        callback : logic.onSetLogo
+        callback : logic.onSetLogo,
+        requireMedia : true
     }),
 
 
@@ -180,13 +180,14 @@ const commands = [
     }),
     new Command({
         //User command
-        command: 'wg product image <product-image>',
+        command: 'wg product image',
 
         //function to be executed
-        callback : logic.onSetProductImage
+        callback : logic.onSetProductImage,
+
+        requireMedia: true
     }),
 ];
-
 
 
 module.exports= onMessage = async (message, client) => {
@@ -213,13 +214,12 @@ module.exports= onMessage = async (message, client) => {
             let input = {};
             //check if the command requires input
             if(command.requireInput){
-                input = command.getInput(message.body);
+                input = await command.getInput(message);
             }
             //determine the user
             logic.setUser(message.id.remote);
             //determine the input
             logic.setInput(input);
-
             //call callback function in the command
             //await is used, so that if a command is an async function
             //the program will wait until it is finished

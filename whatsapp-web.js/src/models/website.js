@@ -10,6 +10,8 @@ class Website {
         this.firstName = '';
         this.lastName = '';
         this.companyName = companyName;
+        this.logo = '';
+        this.banner = '';
         this.logoUrl = '';
         this.bannerUrl = '';
         this.desc = '';
@@ -64,6 +66,27 @@ class Website {
     getSelectedProduct()
     {
         return this.getProduct(this.products.selectedData);
+    }
+
+    toJson(){
+        let j = {};
+        j["firstName"] = this.firstName;
+        j["lastName"] = this.lastName;
+        j["companyName"] = this.companyName;
+        j["logoUrl"] = this.logoUrl;
+        j["bannerUrl"] = this.bannerUrl;
+        j["email"] = this.email;
+        j["description"] = this.desc;
+        
+        let csv = '';
+        for (let prod of this.products.getAllData().values())
+        {
+            let m = [prod.id, prod.name, prod.desc, prod.cost, prod.imageUrl].join(',');
+            csv += `${m}\n`;
+        }
+        j['csv'] = csv;
+
+        return JSON.stringify(j);
     }
 
 
