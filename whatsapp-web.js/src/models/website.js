@@ -78,7 +78,7 @@ class Website {
         j["email"] = this.email;
         j["description"] = this.desc;
         
-        let csv = '';
+        let csv = 'product id,product name,description,cost,product image url\n';
         for (let prod of this.products.getAllData().values())
         {
             let m = [prod.id, prod.name, prod.desc, prod.cost, prod.imageUrl].join(',');
