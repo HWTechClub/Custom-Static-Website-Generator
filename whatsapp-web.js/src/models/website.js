@@ -77,6 +77,7 @@ class Website {
         j["bannerUrl"] = this.bannerUrl;
         j["email"] = this.email;
         j["description"] = this.desc;
+        j["template"] = 'Colo_Shop';
         
         let csv = 'product id,product name,description,cost,product image url\n';
         for (let prod of this.products.getAllData().values())
