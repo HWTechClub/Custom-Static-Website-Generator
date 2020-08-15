@@ -16,7 +16,7 @@ class Command{
     }
 
     /**
-     * 
+     * Checks if a message is equal to the command.
      * @param {string} message 
      */
     equals(message){
@@ -71,6 +71,9 @@ class Command{
      * This determines if the command requires input
      * if the command has <inputName> in the string
      * then the command requires input
+     * 
+     * else if the command requires media
+     * then the command requires input
      */
     _requireInput(){
         if(this.requireMedia)
@@ -87,7 +90,7 @@ class Command{
     }
 
     /**
-     * returns an array of string representing the inputs of the command
+     * returns an array of string or MessageMedia representing the inputs of the command
      * @param {import("whatsapp-web.js").Message} message 
      */
     async getInput(message){
@@ -102,7 +105,8 @@ class Command{
     }
     
     /**
-     * 
+     * Returns an object with string input from a message
+     * The string is mapped to the command variable
      * @param {string} msgString 
      */
     _getInputMessage(msgString){
@@ -121,11 +125,12 @@ class Command{
     }
 
     /**
-     * 
+     * Splits the message into an array of words
+     * Splits the message by space and ""
      * @param {string} msg 
      */
     _getSplitMessage(msg){
-        let split = msg.split(/['"]/g);
+        let split = msg.split(/["]/g);
         if(split.length > 1)
         {
             let splitMsg = split[0].trim().split(' '); 
@@ -138,7 +143,7 @@ class Command{
     }
 
     /**
-     * 
+     * Returns an object with a meesageMedia mapped to 'media'
      * @param {import("whatsapp-web.js").Message} message 
      */
     async _getInputMedia(message){
