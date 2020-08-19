@@ -64,3 +64,15 @@ typings/
 
 #session whatsappwebjs json file 
 whatsapp-web.js/session.json
+
+# ignore file in the generated website section 
+website-generator/public/pages/*
+
+# ignore ejs.html files
+website-generator/public/templates/*/*.ejs.html
+
+# Not IPFS file in the direcotry
+!website-generator/public/pages/ipfs-deploy.sh
+
+
+

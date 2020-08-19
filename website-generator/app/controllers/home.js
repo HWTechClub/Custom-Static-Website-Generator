@@ -24,8 +24,6 @@ exports.generate = function (req, res) {
   //we can now manipulate the data
   let result = req.body.companyName;
 
-  //console.log(req.body);
-
   let dir = './public/pages/' + req.body.companyName;
 
   if (!fs.existsSync(dir)) {
@@ -100,12 +98,10 @@ exports.deploy_ipfs = function (req, res) {
 }
 
 exports.convertCsv = function (req, res, next) {
-  console.log(req.body);
   const csvStr = req.body.csv;
   csv()
     .fromString(csvStr)
     .then((jsonObj) => {
-      console.log(jsonObj)
       req.body.csv = jsonObj;
       //delete file at path
       next()

@@ -1031,14 +1031,11 @@ section
 }
 .product-item:hover::after
 {
-	box-shadow: 0 25px 29px rgba(63, 78, 100, 0.15);
-	border: solid 2px rgba(235,235,235,1);
 }
 .product
 {
 	width: 100%;
 	height: 340px;
-	border-right: solid 1px #e9e9e9;
 }
 .product_image
 {
