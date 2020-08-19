@@ -87,7 +87,7 @@
 						<div class="col-lg-12 text-right">
 							<div class="logo_container">
 								<a href="#"><img
-										src="https://hwtech.club/images/output-		&lt;div class=&#34;favorite&#34;&gt;&lt;/div&gt;onlinepngtools.png"
+										src="https://hwtech.club/images/output-onlinepngtools.png"
 										class="img-fluid" style="height:5rem;" /></a>
 							</div>
 							<nav class="navbar">
@@ -145,9 +145,7 @@
 					<div class="col text-center">
 						<div class="section_title new_arrivals_title">
 							<h2>Our Products</h2>
-							<p>test	&lt;li class=&#34;grid_sorting_button button d-flex flex-column justify-content-center align-items-center&#34; data-filter=&#34;.women&#34;&gt;women&#39;s&lt;/li&gt;
-							&lt;li class=&#34;grid_sorting_button button d-flex flex-column justify-content-center align-items-center&#34; data-filter=&#34;.accessories&#34;&gt;accessories&lt;/li&gt;
-							&lt;li class=&#34;grid_sorting_button button d-flex flex-column justify-content-center align-items-center&#34; data-filter=&#34;.men&#34;&gt;men&#39;s&lt;/li&gt;</p>
+							<p>Loldfsdf sdfsdsdsfsd sd fsdrs d sdf </p>
 						</div>
 					</div>
 				</div>
@@ -248,13 +246,13 @@
 	<script>
 		$(document).ready(function () {
 
-			if (localStorage.getItem('Test123_49') === null) {
+			if (localStorage.getItem('Test123_50') === null) {
 				console.log("here");
 				var arr = new Array();
-				localStorage.setItem('Test123_49', JSON.stringify(arr));
+				localStorage.setItem('Test123_50', JSON.stringify(arr));
 			}
 
-			var arr_json = JSON.parse(localStorage.getItem('Test123_49'));
+			var arr_json = JSON.parse(localStorage.getItem('Test123_50'));
 
 			$("#checkout_items").html(arr_json.length);
 			console.log(arr_json.length);
@@ -263,11 +261,11 @@
 
 		function additem(name, price) {
 			var data = { 'name': name, 'price': price };
-			var arr_json = JSON.parse(localStorage.getItem('Test123_49'));
+			var arr_json = JSON.parse(localStorage.getItem('Test123_50'));
 			console.log(typeof (arr_json));
 			arr_json.push(data);
-			localStorage.setItem('Test123_49', JSON.stringify(arr_json));
-			console.log(JSON.parse(localStorage.getItem('Test123_49')));
+			localStorage.setItem('Test123_50', JSON.stringify(arr_json));
+			console.log(JSON.parse(localStorage.getItem('Test123_50')));
 			$('#checkout_items').html(arr_json.length);
 		}
 	</script>
