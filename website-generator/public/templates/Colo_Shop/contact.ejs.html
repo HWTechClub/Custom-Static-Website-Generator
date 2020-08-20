@@ -100,7 +100,7 @@
 									<li class="checkout">
 										<a href="cart.html">
 											<i class="fa fa-shopping-cart" aria-hidden="true"></i>
-											<span id="checkout_items" class="checkout_items">2</span>
+											<span id="checkout_items" class="checkout_items">0</span>
 										</a>
 									</li>
 								</ul>
@@ -114,6 +114,18 @@
 			</div>
 
 		</header>
+
+		<div class="fs_menu_overlay"></div>
+		<div class="hamburger_menu">
+			<div class="hamburger_close"><i class="fa fa-times" aria-hidden="true"></i></div>
+			<div class="hamburger_menu_content text-right">
+				<ul class="menu_top_nav">
+					<li class="menu_item"><a href="index.html">home</a></li>
+					<li class="menu_item"><a href="cart.html">cart</a></li>
+					<li class="menu_item"><a href="#">contact</a></li>
+				</ul>
+			</div>
+		</div>
 
 		<div class="container contact_container">
 			<div class="row">
@@ -279,13 +291,13 @@
 	<script>
 		$(document).ready(function () {
 
-			if (localStorage.getItem('Test123') === null) {
+			if (localStorage.getItem('Test123_50') === null) {
 				console.log("here");
 				var arr = new Array();
-				localStorage.setItem('Test123', JSON.stringify(arr));
+				localStorage.setItem('Test123_50', JSON.stringify(arr));
 			}
 
-			var arr_json = JSON.parse(localStorage.getItem('Test123'));
+			var arr_json = JSON.parse(localStorage.getItem('Test123_50'));
 
 			$("#checkout_items").html(arr_json.length);
 			console.log(arr_json.length);

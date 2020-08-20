@@ -120,8 +120,8 @@
 			<div class="hamburger_menu_content text-right">
 				<ul class="menu_top_nav">
 					<li class="menu_item"><a href="#">home</a></li>
-					<li class="menu_item"><a href="#">cart</a></li>
-					<li class="menu_item"><a href="#">contact</a></li>
+					<li class="menu_item"><a href="cart.html">cart</a></li>
+					<li class="menu_item"><a href="contact.html">contact</a></li>
 				</ul>
 			</div>
 		</div>
@@ -145,18 +145,15 @@
 					<div class="col text-center">
 						<div class="section_title new_arrivals_title">
 							<h2>Our Products</h2>
+							<p>Loldfsdf sdfsdsdsfsd sd fsdrs d sdf </p>
 						</div>
 					</div>
-
 				</div>
 				<!---<div class="row align-items-center">
 				<div class="col text-center">
 					<div class="new_arrivals_sorting">
 						<ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
 							<li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked" data-filter="*">all</li>
-							<li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".women">women's</li>
-							<li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".accessories">accessories</li>
-							<li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".men">men's</li>
 						</ul>
 					</div>
 				</div>
@@ -168,20 +165,36 @@
 
 							<!-- Product 3 -->
                         
-							<div class="product-item women">
+							<div class="product-item *">
 								<div class="product product_filter">
 									<div class="product_image">
-										<img src="https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/141px-Java_programming_language_logo.svg.png" alt="">
+										<img src="https://i.stack.imgur.com/WxVXe.jpg" alt="">
 									</div>
-									<div class="favorite"></div>
 									<div class="product_info">
-										<h6 class="product_name"><a href="#"><a>test</a></h6>
-										<div class="product_price">$12</div>
+										<h6 class="product_name"><a href="#"><a>java</a></h6>
+										<p>We all love java fsdf sdf&#39; sd&#39;f &#39;sdf sfsdf sdf sdf</p>
+										<div class="product_price">$130</div>
 									</div>
+									<br>
+									<div class="cart"><div class="red_button add_to_cart_button"><a onClick="additem('java', 130)" style="color:white">Add to cart</a></div></div>
 								</div>
-								<div class="red_button add_to_cart_button"><a onClick="additem('test', 12)" style="color:white">Add to cart</a></div>
 							</div>
-							
+						
+							<div class="product-item *">
+								<div class="product product_filter">
+									<div class="product_image">
+										<img src="https://images-na.ssl-images-amazon.com/images/I/41IlAcQj9nL.jpg" alt="">
+									</div>
+									<div class="product_info">
+										<h6 class="product_name"><a href="#"><a>C</a></h6>
+										<p>C lord it is</p>
+										<div class="product_price">$200</div>
+									</div>
+									<br>
+									<div class="cart"><div class="red_button add_to_cart_button"><a onClick="additem('C', 200)" style="color:white">Add to cart</a></div></div>
+								</div>
+							</div>
+						
 
 						</div>
 					</div>
@@ -190,24 +203,37 @@
 		</div>
 		<br>
 		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+	
+	<!-- Footer -->
 
-
-		<!-- Footer -->
-
-		<footer class="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="footer_nav_container">
-							<div class="cr">©2018 All Rights Reserverd. This template is made with <i
-									class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#">Colorlib</a></div>
-						</div>
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="footer_nav_container">
+						<div class="cr">©2018 All Rights Reserverd. This template is made with <i
+								class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#">Colorlib</a></div>
 					</div>
 				</div>
 			</div>
-		</footer>
+		</div>
+	</footer>
 
 	</div>
+		
 
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="styles/bootstrap4/popper.js"></script>
@@ -220,13 +246,13 @@
 	<script>
 		$(document).ready(function () {
 
-			if (localStorage.getItem('Test123') === null) {
+			if (localStorage.getItem('Test123_50') === null) {
 				console.log("here");
 				var arr = new Array();
-				localStorage.setItem('Test123', JSON.stringify(arr));
+				localStorage.setItem('Test123_50', JSON.stringify(arr));
 			}
 
-			var arr_json = JSON.parse(localStorage.getItem('Test123'));
+			var arr_json = JSON.parse(localStorage.getItem('Test123_50'));
 
 			$("#checkout_items").html(arr_json.length);
 			console.log(arr_json.length);
@@ -235,11 +261,11 @@
 
 		function additem(name, price) {
 			var data = { 'name': name, 'price': price };
-			var arr_json = JSON.parse(localStorage.getItem('Test123'));
+			var arr_json = JSON.parse(localStorage.getItem('Test123_50'));
 			console.log(typeof (arr_json));
 			arr_json.push(data);
-			localStorage.setItem('Test123', JSON.stringify(arr_json));
-			console.log(JSON.parse(localStorage.getItem('Test123')));
+			localStorage.setItem('Test123_50', JSON.stringify(arr_json));
+			console.log(JSON.parse(localStorage.getItem('Test123_50')));
 			$('#checkout_items').html(arr_json.length);
 		}
 	</script>

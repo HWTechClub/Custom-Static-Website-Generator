@@ -50,5 +50,8 @@ You need to start both website-generator and whatsapp-bot.
 
 
 ### Contributors 
-1. Akilan Selvacoumar : as251@hw.ac.uk
-2. Gaurav Gosain : gg68@hw.ac.uk
+1. Akilan Selvacoumar: akilan@hwtech.club (https://akilan.io)
+2. Gaurav Gosain: gg68@hw.ac.uk
+3. Nicole Tobe: https://github.com/tobenxe
+4. Humaid AlQassimi: me@humaidq.ae(https://humaidq.ae)
+   (Website generator based on: https://humaidq.ae/projects/shopsheet/)

@@ -120,8 +120,8 @@
 			<div class="hamburger_menu_content text-right">
 				<ul class="menu_top_nav">
 					<li class="menu_item"><a href="#">home</a></li>
-					<li class="menu_item"><a href="#">cart</a></li>
-					<li class="menu_item"><a href="#">contact</a></li>
+					<li class="menu_item"><a href="cart.html">cart</a></li>
+					<li class="menu_item"><a href="contact.html">contact</a></li>
 				</ul>
 			</div>
 		</div>
@@ -145,18 +145,15 @@
 					<div class="col text-center">
 						<div class="section_title new_arrivals_title">
 							<h2>Our Products</h2>
+							<p><%= description %></p>
 						</div>
 					</div>
-
 				</div>
 				<!---<div class="row align-items-center">
 				<div class="col text-center">
 					<div class="new_arrivals_sorting">
 						<ul class="arrivals_grid_sorting clearfix button-group filters-button-group">
 							<li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center active is-checked" data-filter="*">all</li>
-							<li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".women">women's</li>
-							<li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".accessories">accessories</li>
-							<li class="grid_sorting_button button d-flex flex-column justify-content-center align-items-center" data-filter=".men">men's</li>
 						</ul>
 					</div>
 				</div>
@@ -168,20 +165,21 @@
 
 							<!-- Product 3 -->
                         <% for(var i = 0; i < csv.length ; i++) {%>
-							<div class="product-item women">
+							<div class="product-item *">
 								<div class="product product_filter">
 									<div class="product_image">
 										<img src="<%= csv[i]['product image url'] %>" alt="">
 									</div>
-									<div class="favorite"></div>
 									<div class="product_info">
 										<h6 class="product_name"><a href="#"><a><%= csv[i]["product name"] %></a></h6>
+										<p><%= csv[i]["description"] %></p>
 										<div class="product_price">$<%= csv[i].cost %></div>
 									</div>
+									<br>
+									<div class="cart"><div class="red_button add_to_cart_button"><a onClick="additem('<%= csv[i]['product name'] %>', <%= csv[i].cost %>)" style="color:white">Add to cart</a></div></div>
 								</div>
-								<div class="red_button add_to_cart_button"><a onClick="additem('<%= csv[i]['product name'] %>', <%= csv[i].cost %>)" style="color:white">Add to cart</a></div>
 							</div>
-							<% } %>
+						<% } %>
 
 						</div>
 					</div>
@@ -190,24 +188,37 @@
 		</div>
 		<br>
 		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+		<br>
+	
+	<!-- Footer -->
 
-
-		<!-- Footer -->
-
-		<footer class="footer">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="footer_nav_container">
-							<div class="cr">©2018 All Rights Reserverd. This template is made with <i
-									class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#">Colorlib</a></div>
-						</div>
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="footer_nav_container">
+						<div class="cr">©2018 All Rights Reserverd. This template is made with <i
+								class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#">Colorlib</a></div>
 					</div>
 				</div>
 			</div>
-		</footer>
+		</div>
+	</footer>
 
 	</div>
+		
 
 	<script src="js/jquery-3.2.1.min.js"></script>
 	<script src="styles/bootstrap4/popper.js"></script>
