@@ -51,10 +51,11 @@ You need to start both website-generator and whatsapp-bot.
 
 ### Contributors 
 1. Akilan Selvacoumar: akilan@hwtech.club (https://akilan.io)
-2. Gaurav Gosain: gg68@hw.ac.uk
-3. Nicole Tobe: https://github.com/tobenxe
-4. Humaid AlQassimi: me@humaidq.ae(https://humaidq.ae)
+2. Mohammed Ashab Uddin
+3. Baber Jan
+4. Preeti Rawat
+5. Gaurav Gosain: gg68@hw.ac.uk
+6. Nicole Tobe: https://github.com/tobenxe
+7. Humaid AlQassimi: me@humaidq.ae(https://humaidq.ae)
    (Website generator based on: https://humaidq.ae/projects/shopsheet/)
-5. Mohammed Ashab Uddin
-6. Baber Jan
-7. Preeti Rawat
+
