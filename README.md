@@ -51,7 +51,7 @@ You need to start both website-generator and whatsapp-bot.
 
 ### Contributors 
 1. Akilan Selvacoumar: akilan@hwtech.club (https://akilan.io)
-2. Mohammed Ashab Uddin
+2. Mohammed Ashab Uddin : https://ashab272000.github.io/dist/
 3. Baber Jan
 4. Preeti Rawat
 5. Gaurav Gosain: gg68@hw.ac.uk
