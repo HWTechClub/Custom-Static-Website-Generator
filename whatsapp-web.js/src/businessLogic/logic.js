@@ -8,7 +8,7 @@ const {stripIndents} = require('common-tags');
 
 /**
  * user to be sent the message to
- * @type {User}
+ * @type { User }
  */
 let user = null;
 
@@ -176,7 +176,7 @@ module.exports.onSelectProduct = () => {
             if(!user.getSelectedWebsite().selectProduct(input['id']))
             {
                 return [
-                    `There was no product with the given id. Use the following command to get the list of all id's`,
+                    `There was no product with the given id. Use the following command to get the list of all products`,
                     `wg product all`
                 ];
             }
@@ -322,25 +322,41 @@ module.exports.onSetProductImage = () => {
 module.exports.help = () =>
 {
     let help_signal = [
-        `Here are the following commands that can help you create your website`,
-        `if you want to create a website use *wg create <company name>* and write the name of your company`,
-        `if you already have a website us *wg website <company name>* to get access to the website`,
-        `when creating your website you will be asked to give details of your company. To add these details you will have to write *wg website <firstName>* *wg website <lastName>* etc`,
-        `If you want to check all the products that have already been created for your websit type *wg product all*`,
-        `If you want to create a new product type *wg product new*`,
-        `If you want to select a particular product for manipulating its data, give your product id as such: *wg product <id>`,
-        `To get all information of the product you selected, type *wg product info*`,
-        `To change the product name, type *wg product name <product-name>*`,
-        `To change the product cost, type *wg product cost <product-cost>* `,
-        `To change the product description, type *wg product desc <product-desc>*`,
-        `To change the image of the product, type *wg product image <product-image>*`,
-        `When you are done making your website and want to see it ,type *wg website finished*`,
-        `If you want to delete a product, type *wg delete product<id>* where id is the product id`,
-        `If you want to delete your whole website, type *wg delete website <company name>`,
-        `That is all! Hope you make a great website~`
+        `NOTE : text between '<>' are replaceable.`,
+        `NOTE : Sentences needs to be between qoutes. For Example "I am a bot" `
+        `*wg create <company_name> Create a website with the given company_name*`,
+        `*wg website select <company_name>* Selects a website if exists`,
+        `*wg website firstname <firstName>* Sets the firstname`,
+        `*wg website lastname <lastName>* Sets the firstname`,
+        `*wg website logo (with an image attached)* Sets the logo`,
+        `*wg website banner (with an image attached)* Sets the banner`,
+        `*wg website desc <description>* Sets the description`,
+        `*wg website email <email>* Sets the email`,
+        `*wg website finished* Completes and creates the website`,
+        `*wg product new <id>* Creates a new product with an id`,
+        `*wg product select <id>* Selects a product with a given id`,
+        `*wg product all* Shows all the products`,
+        `*wg product info* Shows the information of the selected product`,
+        `*wg product name <name>* Sets the name of the product`,
+        `*wg product desc <description>* Sets the description of the product`,
+        `*wg product cost <cost>* Sets the cost of the product`,
+        `*wg product image (with an image attached)* Sets the image of the product`,
     ];
 
     return help_signal;
+}
+
+module.exports.onSelectWebsite = () => {
+
+    if(user.isWebsite(input['company_name']))
+    {
+        user.selectWebsite(input['company_name']);
+        return [`Website with the company name *${user.getSelectedWebsite().companyName}* is selected`]
+    }
+
+    return [`No website with the company name *${input['company_name']}* has been selected`];
+
+
 }
 
 /**
@@ -353,14 +369,12 @@ module.exports.onCreateWebsite = () =>
     user.addWebsite(new Website(input['company_name']));
 
     return [
+        `A website with the company name *${user.getSelectedWebsite().companyName}* is created`,
         stripIndents`
-        welcome to building your own website!
-        We would like you add the following details:
         wg website firstname *<First_Name>*
         wg website lastname *<Last_Name>*
-        wg website companyname *<Company_name>*
-        wg website logo *<Logo_URL>*
-        wg website banner *<Banner_URL>*
+        wg website logo *with an image attached*
+        wg website banner *with an image attached*
         wg website description *<Description>*
         wg website email *<Email>*
         For adding information use *wg website <firstname>*`

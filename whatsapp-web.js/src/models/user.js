@@ -29,6 +29,10 @@ class User{
         return this.websites.getData(companyName);
     }
 
+    isWebsite(companyName){
+        return this.websites.isData(companyName);
+    }
+
     selectWebsite(companyName)
     {
         return this.websites.selectData(companyName);
@@ -43,4 +47,6 @@ class User{
 
 }
 
-module.exports.User = User;
+module.exports = {
+    User: User
+}

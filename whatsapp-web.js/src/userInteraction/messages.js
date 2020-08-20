@@ -66,6 +66,12 @@ const commands = [
     //Inputs user's first name for website
     new Command({
         //User command
+        command: 'wg website select <company_name>',
+        callback : logic.onSelectWebsite
+    }),
+
+    new Command({
+        //User command
         
         command: 'wg website firstname <firstName>', 
 
@@ -99,10 +105,12 @@ const commands = [
     new Command({
         //User command
         
-        command: 'wg website banner <bannerURL>', 
+        command: 'wg website banner', 
 
         //function to be executed
-        callback : logic.onSetBanner
+        callback : logic.onSetBanner,
+
+        requireMedia: true,
     }),
 
     //inputs the description of the company to be seen in the website
