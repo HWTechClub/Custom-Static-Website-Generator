@@ -591,7 +591,7 @@ module.exports.onWebsiteFinished = () => {
 
 module.exports.onDeployWebsite = () => {
     return check({
-        checkFunction: checkSelectedProductExist,
+        checkFunction: checkSelectedWebsiteExist,
         callback : async () => {
             let res = new Promise( (resolve, reject) => {
                 request({
