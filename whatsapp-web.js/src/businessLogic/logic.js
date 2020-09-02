@@ -595,7 +595,7 @@ module.exports.onDeployWebsite = () => {
         callback : async () => {
             let res = new Promise( (resolve, reject) => {
                 request({
-                    url: process.argv[2]+"/ipfsdeploy?id="+user.getSelectedWebsite().companyName,
+                    url: process.argv[2]+"/ipfsdeploy?id="+ user.getSelectedWebsite().companyName,
                     method: "GET",
                     headers: {
                         "content-type": "application/json",  // <--Very important!!!

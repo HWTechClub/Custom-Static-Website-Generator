@@ -194,6 +194,13 @@ const commands = [
 
         requireMedia: true
     }),
+    new Command({
+        //User command
+        command: 'wg deploy ipfs',
+
+        //function to be executed
+        callback : logic.onDeployWebsite,
+    }),
 ];
 
 
