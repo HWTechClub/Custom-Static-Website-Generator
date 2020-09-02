@@ -31,7 +31,7 @@ const base64_decode = async (base64str, file) =>  {
 const saveImage = async (messageMedia, fileName) => {
     let file = `../website-generator/public/images/${fileName}.jpg`;
     await base64_decode(messageMedia.data, file);
-    return file;
+    return `../../images/${fileName}.jpg`;
 }
 
 const addProduct = (id) => {
@@ -323,7 +323,7 @@ module.exports.help = () =>
 {
     let help_signal = [
         `NOTE : text between '<>' are replaceable.`,
-        `NOTE : Sentences needs to be between qoutes. For Example "I am a bot" `
+        `NOTE : Sentences needs to be between qoutes. For Example "I am a bot" `,
         `*wg create <company_name> Create a website with the given company_name*`,
         `*wg website select <company_name>* Selects a website if exists`,
         `*wg website firstname <firstName>* Sets the firstname`,

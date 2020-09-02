@@ -15,7 +15,6 @@ const commands = [
 
         //function to be executed
         callback : (input) => {  
-
             logic.onWG();
             //mesage to be sent to the user
             let message = [
