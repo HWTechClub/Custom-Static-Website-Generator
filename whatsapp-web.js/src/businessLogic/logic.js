@@ -375,7 +375,7 @@ module.exports.onCreateWebsite = () =>
         wg website lastname *<Last_Name>*
         wg website logo *with an image attached*
         wg website banner *with an image attached*
-        wg website description *<Description>*
+        wg website desc *<Description>*
         wg website email *<Email>*
         For adding information use *wg website <firstname>*`
        
@@ -523,7 +523,7 @@ module.exports.onSetDesc = (descriptiondata) =>
         callback : () => {
 
             user.getSelectedWebsite().desc = input['desc'];
-            return [`Banner has been set to ${user.getSelectedWebsite().desc}`];
+            return [`Description has been set to ${user.getSelectedWebsite().desc}`];
         }
     });
 }
