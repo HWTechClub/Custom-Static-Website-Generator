@@ -13,10 +13,10 @@
   "dependencies": {
     "common-tags": "^1.8.0",
     "request": "^2.88.2",
-    "whatsapp-web.js": "^1.8.2"
+    "whatsapp-web.js": "^1.12.6"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "mocha": "^8.0.1"
+    "chai": "^4.3.4",
+    "mocha": "^8.4.0"
   }
 }
