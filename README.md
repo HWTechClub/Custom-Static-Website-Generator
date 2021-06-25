@@ -1,6 +1,8 @@
 [![GPLv2 license](https://img.shields.io/badge/License-GPLv2-blue.svg)](http://perso.crans.org/besson/LICENSE.html)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/HWTechClub/Custom-Static-Website-Generator/graphs/commit-activity)
 
+![CustomWebsiteGenerator](https://user-images.githubusercontent.com/55575735/123408904-9da0dd80-d5be-11eb-8cc5-7b68be61630d.png){width=1in}
+![Whatsapp Bot](https://user-images.githubusercontent.com/55575735/123408959-af828080-d5be-11eb-83fa-5f8b7dd55a9b.png){width=1in}
 
 # Generating static web pages using whatsapp 
 In this project we will illustrate how to build a static web page using commands in whatsapp. 
