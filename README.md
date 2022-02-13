@@ -60,12 +60,12 @@ You need to start both website-generator and whatsapp-bot.
 
 
 ### Contributors 
-1. Akilan Selvacoumar: akilan@hwtech.club (https://akilan.io)
+1. Akilan Selvacoumar: me AT akilan.io (https://akilan.io)
 2. Mohammed Ashab Uddin : https://ashab272000.github.io/dist/
 3. Baber Jan
 4. Preeti Rawat
-5. Gaurav Gosain: gg68@hw.ac.uk
+5. Gaurav Gosain: gg68 AT hw.ac.uk
 6. Nicole Tobe: https://github.com/tobenxe
-7. Humaid AlQassimi: me@humaidq.ae(https://humaidq.ae)
+7. Humaid AlQassimi: public AT huma.id(https://humaidq.ae)
    (Website generator based on: https://humaidq.ae/projects/shopsheet/)
 
